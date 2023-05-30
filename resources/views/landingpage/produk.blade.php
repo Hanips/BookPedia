@@ -25,21 +25,24 @@
             <div id="tab-1" class="tab-pane fade show p-0 active">
                 <div class="row g-4">
                     @foreach ($ar_buku as $buku)
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    @empty($buku->foto)
-                                        <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid w-100" alt="">
-                                    @else
-                                        <img src="{{ url('landingpage/img') }}/{{ $buku->foto }}" class="img-fluid w-100" alt="">
-                                    @endempty
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Best</div>
+                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <a href="">
+                                <div class="product-item">
+                                    <div class="position-relative bg-light overflow-hidden">
+                                        @empty($buku->foto)
+                                            <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid w-100" alt="">
+                                        @else
+                                            <img src="{{ url('landingpage/img') }}/{{ $buku->foto }}" class="img-fluid w-100" alt="">
+                                        @endempty
+                                        <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 py-0 px-1">Best Seller</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="d-block h8 mb-2 text-truncate text-dark capitalize" href="" title="{{ $buku->judul }}"><b>{{ $buku->judul }}</b></a>
+                                        <p>{{ $buku->kategori->nama }}</p>
+                                        <span class="text-primary me-1">Rp. {{ number_format($buku->harga,0,',','.') }}</span>
+                                    </div>
                                 </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">{{ $buku->judul }}</a>
-                                    <span class="text-primary me-1">{{ $buku->harga }}</span>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     @endforeach
                     <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -47,56 +50,7 @@
                     </div>
                 </div>
             </div>
-            <div id="tab-2" class="tab-pane fade show p-0 active">
-                <div class="row g-4">
-                    @foreach ($ar_buku as $buku)
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    @empty($buku->foto)
-                                        <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid w-100" alt="">
-                                    @else
-                                        <img src="{{ url('landingpage/img') }}/{{ $buku->foto }}" class="img-fluid w-100" alt="">
-                                    @endempty
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">Best</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">{{ $buku->judul }}</a>
-                                    <span class="text-primary me-1">{{ $buku->harga }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Browse More Products</a>
-                    </div>
-                </div>
-            </div>
-            <div id="tab-3" class="tab-pane fade show p-0 active">
-                <div class="row g-4">
-                    @foreach ($ar_buku as $buku)
-                        <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
-                                    @empty($buku->foto)
-                                        <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid w-100" alt="">
-                                    @else
-                                        <img src="{{ url('landingpage/img') }}/{{ $buku->foto }}" class="img-fluid w-100" alt="">
-                                    @endempty
-                                    <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">best</div>
-                                </div>
-                                <div class="text-center p-4">
-                                    <a class="d-block h5 mb-2" href="">{{ $buku->judul }}</a>
-                                    <span class="text-primary me-1">{{ $buku->harga }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
-                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Browse More Products</a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>
