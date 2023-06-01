@@ -18,4 +18,15 @@ Route::get('/produk', function () {
     return view('landingpage.produk');
 });
 
+Route::get('/admin', function () {
+    return view('adminpage.home');
+});
+
+Route::get('/buku', function () {
+    return view('buku.index');
+});
+
 Route::get('/', [BukuController::class, 'dataBuku']);
+Route::resource('buku', BukuController::class);
+
+Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');

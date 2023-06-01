@@ -26,20 +26,29 @@
                 <div class="row g-4">
                     @foreach ($ar_buku as $buku)
                         <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                            <a href="">
+                            <a href="{{ route('landingpage.buku_detail', $buku->id) }}">
                                 <div class="product-item">
                                     <div class="position-relative bg-light overflow-hidden">
                                         @empty($buku->foto)
-                                            <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid w-100" alt="">
+                                          <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">
                                         @else
-                                            <img src="{{ url('landingpage/img') }}/{{ $buku->foto }}" class="img-fluid w-100" alt="">
+                                          @php
+                                            $fotoPath = 'landingpage/img/' . $buku->foto;
+                                            $fotoUrl = url($fotoPath);
+                                          @endphp
+                                          @if (file_exists(public_path($fotoPath)))
+                                            <img src="{{ $fotoUrl }}" class="img-fluid" alt="Foto e-book">
+                                          @else
+                                            <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">
+                                          @endif
                                         @endempty
                                         <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 py-0 px-1">Best Seller</div>
                                     </div>
                                     <div class="text-center">
                                         <a class="d-block h8 mb-2 text-truncate text-dark capitalize" href="" title="{{ $buku->judul }}"><b>{{ $buku->judul }}</b></a>
                                         <p>{{ $buku->kategori->nama }}</p>
-                                        <span class="text-primary me-1">Rp. {{ number_format($buku->harga,0,',','.') }}</span>
+                                        <span style="color: #0261ae;" class="me-1"><b>Rp. {{ number_format($buku->harga, 0, ',', '.') }}</b></span>
+
                                     </div>
                                 </div>
                             </a>

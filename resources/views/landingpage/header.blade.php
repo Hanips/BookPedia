@@ -12,7 +12,7 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+        <a href="{{ url('/') }}" class="navbar-brand ms-4 ms-lg-0">
             <h1 class="fw-bold text-primary m-0">Book<span class="text-secondary">Pedia</span></h1>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -33,7 +33,7 @@
                         <a href="" class="dropdown-item">Biografi</a>
                     </div>
                 </div>
-                <a href="contact.html" class="nav-item nav-link">Support</a>
+                <a href="" class="nav-item nav-link">Tim Kami</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="">

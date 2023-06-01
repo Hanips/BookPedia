@@ -44,5 +44,5 @@
         </button>
     </div>
   </div>
-  @include('landingpage.produk')
+  @include('landingpage.best_seller')
 @endsection
