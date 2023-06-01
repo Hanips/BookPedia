@@ -62,9 +62,8 @@ class BukuController extends Controller
             'sinopsis' => 'nullable|max:100',
             'rating' => 'required|numeric|max:5',
             'harga' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
-            'foto' => 'nullable|max:50',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //KB
             'url_buku' => 'required|max:255',
-            //'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|min:2|max:500', //KB
         ],
         //custom pesan errornya
         [
@@ -88,20 +87,25 @@ class BukuController extends Controller
             'rating.max'=>'Rating Maksimal 5 Bintang',
             'harga.required'=>'Harga Wajib Diisi',
             'harga.regex'=>'Harga Harus Berupa Angka',
-            'foto.max'=>'Foto Maksimal 50 kata',
+            'foto.min'=>'Ukuran file kurang 2 KB',
+            'foto.max'=>'Ukuran file melebihi 500 KB',
+            'foto.image'=>'File foto bukan gambar',
+            'foto.mimes'=>'Extension file selain jpg,jpeg,png,svg',
             'url_buku.required'=>'URL Buku Wajib Diisi',
         ]
         );
         //Produk::create($request->all());
-        //------------apakah user  ingin upload foto--------- --
-        //if(!empty($request->foto)){
-        //    $fileName = 'produk_'.$request->kode.'.'.$request->foto->extension();
-        //    //$fileName = $request->foto->getClientOriginalName();
-        //    $request->foto->move(public_path('admin/assets/img'),$fileName);
-        //}
-        //else{
-        //    $fileName = '';
-        //}
+
+        //------------apakah user ingin upload foto--------- --
+        if(!empty($request->foto)){
+            $fileName = 'buku_'.$request->kode.'.'.$request->foto->extension();
+            //$fileName = $request->foto->getClientOriginalName();
+            $request->foto->move(public_path('landingpage/img'),$fileName);
+        }
+        else{
+            $fileName = '';
+        }
+
         //lakukan insert data dari request form
         DB::table('buku')->insert(
             [
@@ -115,7 +119,7 @@ class BukuController extends Controller
                 'sinopsis'=>$request->sinopsis,
                 'rating'=>$request->rating,
                 'harga'=>$request->harga,
-                'foto'=>$request->foto,
+                'foto'=>$fileName,
                 'url_buku'=>$request->url_buku,
             ]);
        
@@ -168,9 +172,8 @@ class BukuController extends Controller
             'sinopsis' => 'nullable|max:100',
             'rating' => 'required|numeric|max:5',
             'harga' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
-            'foto' => 'nullable|max:50',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //kb
             'url_buku' => 'required|max:255',
-            //'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|min:2|max:500', //KB
         ],
         //custom pesan errornya
         [
@@ -194,20 +197,31 @@ class BukuController extends Controller
             'rating.max'=>'Rating Maksimal 5 Bintang',
             'harga.required'=>'Harga Wajib Diisi',
             'harga.regex'=>'Harga Harus Berupa Angka',
-            'foto.max'=>'Foto Maksimal 50 kata',
+            'foto.min'=>'Ukuran file kurang 2 KB',
+            'foto.max'=>'Ukuran file melebihi 500 KB',
+            'foto.image'=>'File foto bukan gambar',
+            'foto.mimes'=>'Extension file selain jpg,jpeg,png,svg',
             'url_buku.required'=>'URL Buku Wajib Diisi',
         ]
         );
         //Produk::create($request->all());
-        //------------apakah user  ingin upload foto--------- --
-        //if(!empty($request->foto)){
-        //    $fileName = 'produk_'.$request->kode.'.'.$request->foto->extension();
-        //    //$fileName = $request->foto->getClientOriginalName();
-        //    $request->foto->move(public_path('admin/assets/img'),$fileName);
-        //}
-        //else{
-        //    $fileName = '';
-        //}
+        //------------ambil foto lama apabila user ingin ganti foto-----------
+        $foto = DB::table('buku')->select('foto')->where('id',$id)->get();
+        foreach($foto as $f){
+            $namaFileFotoLama = $f->foto;
+        }
+        //------------apakah user  ingin ubah upload foto baru--------- --
+        if(!empty($request->foto)){
+            //jika ada foto lama, hapus foto lamanya terlebih dahulu
+            if(!empty($namaFileFotoLama)) unlink('landingpage/img/'.$namaFileFotoLama);
+            //lalukan proses ubah foto lama menjadi foto baru
+            $fileName = 'buku_'.$request->kode.'.'.$request->foto->extension();
+            //$fileName = $request->foto->getClientOriginalName();
+            $request->foto->move(public_path('landingpage/img'),$fileName);
+        }
+        else{
+            $fileName = $namaFileFotoLama;
+        }
         //lakukan insert data dari request form
         DB::table('buku')->where('id',$id)->update(
             [
@@ -221,12 +235,12 @@ class BukuController extends Controller
                 'sinopsis'=>$request->sinopsis,
                 'rating'=>$request->rating,
                 'harga'=>$request->harga,
-                'foto'=>$request->foto,
+                'foto'=>$fileName,
                 'url_buku'=>$request->url_buku,
             ]);
        
         return redirect('/buku'.'/'.$id)
-            ->with('success','Data Produk Berhasil Diubah');
+            ->with('success','Data Buku Berhasil Diubah');
     }
 
     /**
@@ -234,8 +248,17 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        Buku::where('id',$id)->delete();
+        $buku = Buku::find($id);
+        if (!empty($buku->foto)) {
+            $fotoPath = public_path('landingpage/img/'.$buku->foto);
+            if (file_exists($fotoPath)) {
+                unlink($fotoPath);
+            }
+        }
+
+        $buku->delete();
         return redirect()->route('buku.index')
-                        ->with('success','Data Produk Berhasil Dihapus');
+                        ->with('success', 'Data Buku Berhasil Dihapus');
     }
+
 }

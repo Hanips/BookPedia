@@ -16,10 +16,10 @@
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{ url('/buku') }}">Buku</a>
-                        <a class="nav-link" href="">Kategori</a>
+                        <a class="nav-link" href="{{ url('/kategori') }}">Kategori</a>
                         <a class="nav-link" href="">Pelanggan</a>
                         <a class="nav-link" href="">Pembayaran</a>
-                        <a class="nav-link" href="">Penerbit</a>
+                        <a class="nav-link" href="{{ url('/penerbit') }}">Penerbit</a>
                         <a class="nav-link" href="">Pesanan</a>
                     </nav>
                 </div>

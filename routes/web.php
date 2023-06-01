@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenerbitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,18 @@ Route::get('/buku', function () {
     return view('buku.index');
 });
 
+Route::get('/kategori', function () {
+    return view('kategori.index');
+});
+
+Route::get('/penerbit', function () {
+    return view('penerbit.index');
+});
+
 Route::get('/', [BukuController::class, 'dataBuku']);
 Route::resource('buku', BukuController::class);
-
 Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');
+
+Route::resource('kategori', KategoriController::class);
+
+Route::resource('penerbit', PenerbitController::class);

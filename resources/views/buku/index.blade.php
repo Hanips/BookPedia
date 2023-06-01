@@ -4,7 +4,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Daftar E-Book</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none text-dark">Dashboard</a></li>
             <li class="breadcrumb-item active">Daftar E-Book</li>
         </ol>
         <div class="card mb-4">
@@ -45,21 +45,24 @@
 		                	<td>{{ $buku->pengarang }}</td>
 		                	<td>Rp. {{ number_format($buku->harga,0,',','.') }}</td>
 		                	<td>
-		                		<form method="POST" action="{{ route('buku.destroy', $buku->id) }}" style="display: inline;">
-		                			@csrf
-		                			@method('DELETE')
-		                			<a class="btn btn-info btn-sm" href="{{ route('buku.show', $buku->id) }}" title="Detail">
-		                				<i class="fa fa-eye"></i>
-		                	    	</a>
-		                			<a class="btn btn-warning btn-sm" href="{{ route('buku.edit', $buku->id) }}" title="Ubah">
-		                				<i class="fa fa-edit"></i>
-		                	    	</a>
-		                			<button class="btn btn-danger btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')">
-		                				<i class="fa fa-trash"></i>
-		                			</button>
-		                			<input type="hidden" name="idx" value=""/>
-		                		</form>
-		                	</td>
+                                <div class="btn-group">
+                                    <a class="btn btn-info btn-sm me-1" href="{{ route('buku.show', $buku->id) }}" title="Detail">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-sm me-1" href="{{ route('buku.edit', $buku->id) }}" title="Ubah">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <form method="POST" action="{{ route('buku.destroy', $buku->id) }}" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        <input type="hidden" name="idx" value=""/>
+                                    </form>
+                                </div>
+                            </td>
+                            
 		                </tr>
 		                @php $no++ @endphp
                         @endforeach

@@ -13,7 +13,7 @@
     <div class="container-fluid px-4">
         <div class="container px-5 my-5">
             <h2>Form E-Book</h2>
-            <form method="POST" action="{{ route('buku.store') }}" id="contactForm">
+            <form method="POST" action="{{ route('buku.store') }}" id="contactForm" enctype="multipart/form-data">
                 @csrf
                 <div class="form-floating mb-3">
                     <input class="form-control" name="kode" value="" id="kodeBuku" type="text" placeholder="Kode Buku" data-sb-validations="required" />
@@ -73,7 +73,7 @@
                     <div class="invalid-feedback" data-sb-feedback="harga:required">Harga is required.</div>
                 </div>
                 <div class="form-floating mb-3">
-                    <input class="form-control" name="foto" value="" id="foto" type="text" placeholder="foto" />
+                    <input class="form-control" name="foto" value="" id="foto" type="file" placeholder="foto" />
                     <label for="foto">Foto</label>
                 </div>
                 <div class="form-floating mb-3">

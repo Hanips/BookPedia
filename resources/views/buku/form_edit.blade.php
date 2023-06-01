@@ -11,7 +11,7 @@
     </div>
 @endif
 <div class="container px-5 my-5">
-    <form method="POST" action="{{ route('buku.update', $row->id) }}" id="contactForm">
+    <form method="POST" action="{{ route('buku.update', $row->id) }}" id="contactForm" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-floating mb-3">
@@ -77,7 +77,7 @@
             <div class="invalid-feedback" data-sb-feedback="harga:required">Harga is required.</div>
         </div>
         <div class="form-floating mb-3">
-            <input class="form-control" name="foto" value="{{ $row->foto }}" id="foto" type="text" placeholder="foto" />
+            <input class="form-control" name="foto" value="{{ $row->foto }}" id="foto" type="file" placeholder="Foto" />
             <label for="foto">Foto</label>
         </div>
         <div class="form-floating mb-3">
