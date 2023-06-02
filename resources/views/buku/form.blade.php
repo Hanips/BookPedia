@@ -63,7 +63,7 @@
                     <label for="sinopsis">Sinopsis</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input class="form-control" name="rating" value="" id="rating" type="number" placeholder="Rating" data-sb-validations="required|max:5" max="5"/>
+                    <input class="form-control" name="rating" value="" id="rating" type="double" placeholder="Rating" data-sb-validations="required|max:5" max="5"/>
                     <label for="rating">Rating</label>
                     <div class="invalid-feedback" data-sb-feedback="rating:required">Rating is required.</div>
                 </div>

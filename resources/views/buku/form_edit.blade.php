@@ -1,6 +1,5 @@
 @extends('adminpage.index')
 @section('content')
-<h3>Form Update E-Book</h3>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -11,6 +10,7 @@
     </div>
 @endif
 <div class="container px-5 my-5">
+    <h2>Form Update E-Book</h2>
     <form method="POST" action="{{ route('buku.update', $row->id) }}" id="contactForm" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -68,7 +68,7 @@
             <label for="sinopsis">Sinopsis</label>
         </div>
         <div class="form-floating mb-3">
-            <input class="form-control" name="rating" value="{{ $row->rating }}" id="rating" type="number" placeholder="Rating"/>
+            <input class="form-control" name="rating" value="{{ $row->rating }}" id="rating" type="double" placeholder="Rating"/>
             <label for="rating">Rating</label>
         </div>
         <div class="form-floating mb-3">

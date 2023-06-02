@@ -17,10 +17,9 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{ url('/buku') }}">Buku</a>
                         <a class="nav-link" href="{{ url('/kategori') }}">Kategori</a>
-                        <a class="nav-link" href="">Pelanggan</a>
-                        <a class="nav-link" href="">Pembayaran</a>
+                        <a class="nav-link" href="{{ url('/pelanggan') }}">Pelanggan</a>
                         <a class="nav-link" href="{{ url('/penerbit') }}">Penerbit</a>
-                        <a class="nav-link" href="">Pesanan</a>
+                        <a class="nav-link" href="{{ url('/pesanan') }}">Pesanan</a>
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Akun</div>

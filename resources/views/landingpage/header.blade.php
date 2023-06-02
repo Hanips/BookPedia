@@ -20,8 +20,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="" class="nav-item nav-link active">Home</a>
-                <a href="" class="nav-item nav-link">Promo</a>
+                <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
+                <a href="{{ url('/promo') }}" class="nav-item nav-link">Promo</a>
                 <a href="" class="nav-item nav-link">Ebook</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kategori</a>
