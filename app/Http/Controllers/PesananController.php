@@ -8,7 +8,6 @@ use App\Models\Pesanan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //jika pakai query builder
-use Illuminate\Database\Eloquent\Model; //jika pakai eloquent
 
 class PesananController extends Controller
 {
@@ -17,7 +16,6 @@ class PesananController extends Controller
      */
     public function index()
     {
-        //$ar_produk = Produk::all(); //eloquent
         $ar_pesanan = DB::table('pesanan')
                 ->join('buku', 'buku.id', '=', 'pesanan.buku_id')
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.pelanggan_id')
@@ -35,6 +33,7 @@ class PesananController extends Controller
         //ambil master untuk dilooping di select option
         $ar_pelanggan = Pelanggan::all();
         $ar_buku = Buku::all();
+
         //arahkan ke form input data
         return view('pesanan.form',compact('ar_pelanggan', 'ar_buku'));
     }
@@ -63,7 +62,6 @@ class PesananController extends Controller
             'ket.max'=>'Keterangan Maksimal 50 Karakter',
         ]
         );
-        //Produk::create($request->all());
 
         //lakukan insert data dari request form
         DB::table('pesanan')->insert(
@@ -95,6 +93,7 @@ class PesananController extends Controller
         //ambil master untuk dilooping di select option
         $ar_pelanggan = Pelanggan::all();
         $ar_buku = Buku::all();
+
         //tampilkan data lama di form
         $row = Pesanan::find($id);
         return view('pesanan.form_edit',compact('row', 'ar_pelanggan', 'ar_buku'));
@@ -123,7 +122,6 @@ class PesananController extends Controller
             'ket.max'=>'Keterangan Maksimal 50 Karakter',
         ]
         );
-        //Produk::create($request->all());
 
         //lakukan insert data dari request form
         DB::table('pesanan')->where('id',$id)->update(

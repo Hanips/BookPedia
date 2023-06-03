@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Buku; //panggil model
-use App\Models\Kategori; //panggil model
 use App\Models\Penerbit; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; //jika pakai query builder
-use Illuminate\Database\Eloquent\Model; //jika pakai eloquent
+use Illuminate\Support\Facades\DB; //query builder
 
 class PenerbitController extends Controller
 {
@@ -17,7 +14,6 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        //$ar_produk = Produk::all(); //eloquent
         $ar_penerbit = DB::table('penerbit')
                 ->select('penerbit.*')
                 ->orderBy('penerbit.id', 'desc')
@@ -49,7 +45,6 @@ class PenerbitController extends Controller
             'nama.max'=>'Penerbit Maksimal 45 karakter',
         ]
         );
-        //Produk::create($request->all());
 
         //lakukan insert data dari request form
         DB::table('penerbit')->insert(

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 03:36 PM
+-- Generation Time: Jun 02, 2023 at 05:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -80,6 +80,7 @@ CREATE TABLE `pelanggan` (
   `id` int(11) NOT NULL,
   `nama` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
   `hp` varchar(15) NOT NULL,
   `foto` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -93,7 +94,7 @@ CREATE TABLE `pelanggan` (
 CREATE TABLE `pembayaran` (
   `id` int(11) NOT NULL,
   `pesanan_id` int(11) NOT NULL,
-  `metode_pembayaran` int(11) NOT NULL,
+  `metode_pembayaran` enum('Kartu kredit','Transfer Bank','Paypal','OVO','GoPay','Dana','Pulsa') NOT NULL,
   `total` double NOT NULL,
   `tgl` datetime NOT NULL DEFAULT current_timestamp(),
   `status` varchar(20) NOT NULL

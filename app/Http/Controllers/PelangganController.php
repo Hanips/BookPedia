@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelanggan; //panggil model
-use App\Models\Pesanan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; //jika pakai query builder
-use Illuminate\Database\Eloquent\Model; //jika pakai eloquent
+use Illuminate\Support\Facades\DB; //query builder
 
 class PelangganController extends Controller
 {
@@ -16,7 +14,6 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        //$ar_produk = Produk::all(); //eloquent
         $ar_pelanggan = DB::table('pelanggan')
                 ->select('pelanggan.*')
                 ->orderBy('pelanggan.id', 'desc')
@@ -62,12 +59,10 @@ class PelangganController extends Controller
             'foto.mimes'=>'Extension file selain jpg,jpeg,png,svg',
         ]
         );
-        //Produk::create($request->all());
 
         //------------apakah user ingin upload foto--------- --
         if(!empty($request->foto)){
             $fileName = 'pelanggan_'.$request->nama.'.'.$request->foto->extension();
-            //$fileName = $request->foto->getClientOriginalName();
             $request->foto->move(public_path('landingpage/img'),$fileName);
         }
         else{
@@ -136,7 +131,6 @@ class PelangganController extends Controller
             'foto.mimes'=>'Extension file selain jpg,jpeg,png,svg',
         ]
         );
-        //Produk::create($request->all());
 
         //------------ambil foto lama apabila user ingin ganti foto-----------
         $foto = DB::table('pelanggan')->select('foto')->where('id',$id)->get();
@@ -147,9 +141,9 @@ class PelangganController extends Controller
         if(!empty($request->foto)){
             //jika ada foto lama, hapus foto lamanya terlebih dahulu
             if(!empty($namaFileFotoLama)) unlink('landingpage/img/'.$namaFileFotoLama);
+
             //lalukan proses ubah foto lama menjadi foto baru
             $fileName = 'pelanggan_'.$request->kode.'.'.$request->foto->extension();
-            //$fileName = $request->foto->getClientOriginalName();
             $request->foto->move(public_path('landingpage/img'),$fileName);
         }
         else{

@@ -14,27 +14,34 @@
                             <i class='fa fa-credit-card'></i>
                         </div>      
                         <div class="col-md-3">
-                            <h5 class="card-title">Total Income</h5>
-                            <p class="card-text">=>Data sum harga dari tabel pembayaran</p>
+                            <p class="card-title">Total Income</p>
+                            <h4 class="card-text">Rp. 
+                                @if ($totalIncome > 10000000 && $totalIncome < 1000000000)
+                                    {{ number_format($totalIncome / 1000000, 1) }} jt
+                                @elseif ($totalIncome > 1000000000)
+                                    {{ number_format($totalIncome / 1000000000, 1) }} M
+                                @else
+                                    {{ number_format($totalIncome, 0, ',', '.') }}
+                                @endif
+                            </h4>
                         </div>
                         <div class="col-md-1 d-flex justify-content-end align-items-center">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </div>
                         <div class="col-md-3">
-                            <h5 class="card-title">Buku Terjual</h5>
-                            <p class="card-text">=>Data total dari tabel pembayaran</p>
+                            <p class="card-title">Buku Terjual</p>
+                            <h4 class="card-text">{{ $totalBukuTerjual }}</h4>
                         </div>
                         <div class="col-md-1 d-flex justify-content-end align-items-center">
                             <i class='fa fa-user'></i>
                         </div>
                         <div class="col-md-3">
-                            <h5 class="card-title">Total Pelanggan</h5>
-                            <p class="card-text">=>Data total dari tabel pelanggan</p>
+                            <p class="card-title">Total Pelanggan</p>
+                            <h4 class="card-text">{{ $totalPelanggan }}</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-xl-6">
                     <div class="card mb-4">

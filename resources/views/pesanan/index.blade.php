@@ -61,8 +61,7 @@
                                         <input type="hidden" name="idx" value=""/>
                                     </form>
                                 </div>
-                            </td>
-                            
+                            </td>  
 		                </tr>
 		                @php $no++ @endphp
                         @endforeach

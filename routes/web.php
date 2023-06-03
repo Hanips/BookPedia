@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PelangganController;
@@ -11,12 +12,8 @@ use App\Http\Controllers\PesananController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
+
 //------- LANDING PAGE
 Route::get('/produk', function () {
     return view('landingpage.produk');
@@ -27,10 +24,6 @@ Route::get('/promo', function () {
 });
 
 //------- ADMIN PAGE
-
-Route::get('/admin', function () {
-    return view('adminpage.home');
-});
 Route::get('/buku', function () {
     return view('buku.index');
 });
@@ -47,10 +40,13 @@ Route::get('/pesanan', function () {
     return view('pesanan.index');
 });
 
+//------- LANDING PAGE
 Route::get('/', [BukuController::class, 'dataBuku']);
 Route::resource('buku', BukuController::class);
 Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');
 
+//------- ADMIN PAGE
+Route::get('/admin', [DashboardController::class, 'index'])->name('adminpage.home');
 Route::resource('kategori', KategoriController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('penerbit', PenerbitController::class);

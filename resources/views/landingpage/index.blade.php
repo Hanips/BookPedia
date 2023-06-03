@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>BookPedia - Toko Buku Digital</title>
@@ -66,5 +65,4 @@
     <!-- Template Javascript -->
     <script src="{{ asset('landingpage/js/main.js') }}"></script>
 </body>
-
 </html>

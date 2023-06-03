@@ -23,15 +23,15 @@
                     </nav>
                 </div>
                 <div class="sb-sidenav-menu-heading">Akun</div>
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="">
                     <div class="sb-nav-link-icon"><i class='fas fa-user-edit'></i></div>
                     Kelola Member
                 </a>
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="">
                     <div class="sb-nav-link-icon"><i class='fas fa-sign-in-alt'></i></div>
                     Login
                 </a>
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="">
                     <div class="sb-nav-link-icon"><i class='fa fa-user-plus'></i></div>
                     Register
                 </a>

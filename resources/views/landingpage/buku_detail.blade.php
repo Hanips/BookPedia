@@ -9,6 +9,7 @@
 <main>
     <div class="container-fluid px-4 mx-auto">
         <div class="container">
+          <h2>Detail Buku</h2>
             <div class="row justify-content-center">
               <div class="col-md-11">
                 <div class="card rounded">

@@ -8,7 +8,6 @@ use App\Models\Penerbit; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //jika pakai query builder
-use Illuminate\Database\Eloquent\Model; //jika pakai eloquent
 
 class BukuController extends Controller
 {
@@ -17,7 +16,6 @@ class BukuController extends Controller
      */
     public function index()
     {
-        //$ar_produk = Produk::all(); //eloquent
         $ar_buku = DB::table('buku')
                 ->join('kategori', 'kategori.id', '=', 'buku.kategori_id')
                 ->join('penerbit', 'penerbit.id', '=', 'buku.penerbit_id')
@@ -94,12 +92,10 @@ class BukuController extends Controller
             'url_buku.required'=>'URL Buku Wajib Diisi',
         ]
         );
-        //Produk::create($request->all());
 
         //------------apakah user ingin upload foto--------- --
         if(!empty($request->foto)){
             $fileName = 'buku_'.$request->kode.'.'.$request->foto->extension();
-            //$fileName = $request->foto->getClientOriginalName();
             $request->foto->move(public_path('landingpage/img'),$fileName);
         }
         else{
@@ -128,7 +124,7 @@ class BukuController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Detail buku adminpage
      */
     public function show(string $id)
     {
@@ -136,6 +132,9 @@ class BukuController extends Controller
         return view('buku.detail', compact('rs'));
     }
 
+    /**
+     * Detail buku landingpage
+     */
     public function detailBuku(string $id)
     {
         $rs = Buku::find($id); //eloquent
@@ -204,24 +203,26 @@ class BukuController extends Controller
             'url_buku.required'=>'URL Buku Wajib Diisi',
         ]
         );
-        //Produk::create($request->all());
+
         //------------ambil foto lama apabila user ingin ganti foto-----------
         $foto = DB::table('buku')->select('foto')->where('id',$id)->get();
         foreach($foto as $f){
             $namaFileFotoLama = $f->foto;
         }
+
         //------------apakah user  ingin ubah upload foto baru--------- --
         if(!empty($request->foto)){
             //jika ada foto lama, hapus foto lamanya terlebih dahulu
             if(!empty($namaFileFotoLama)) unlink('landingpage/img/'.$namaFileFotoLama);
+
             //lalukan proses ubah foto lama menjadi foto baru
             $fileName = 'buku_'.$request->kode.'.'.$request->foto->extension();
-            //$fileName = $request->foto->getClientOriginalName();
             $request->foto->move(public_path('landingpage/img'),$fileName);
         }
         else{
             $fileName = $namaFileFotoLama;
         }
+
         //lakukan insert data dari request form
         DB::table('buku')->where('id',$id)->update(
             [
@@ -260,5 +261,5 @@ class BukuController extends Controller
         return redirect()->route('buku.index')
                         ->with('success', 'Data Buku Berhasil Dihapus');
     }
-
+    
 }

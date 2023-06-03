@@ -1,6 +1,5 @@
 @extends('adminpage.index')
 @section('content')
-<h3>Form Update Penerbit</h3>
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -11,6 +10,7 @@
     </div>
 @endif
 <div class="container px-5 my-5">
+    <h2>Form Update Penerbit</h2>
     <form method="POST" action="{{ route('penerbit.update', $row->id) }}" id="contactForm">
         @csrf
         @method('PUT')

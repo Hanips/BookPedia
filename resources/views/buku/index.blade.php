@@ -62,7 +62,6 @@
                                     </form>
                                 </div>
                             </td>
-                            
 		                </tr>
 		                @php $no++ @endphp
                         @endforeach

@@ -14,7 +14,7 @@
                 <h4 class="text-light mb-4">Support</h4>
                 <p><i class="fa fa-map-marker-alt me-3"></i>Jl. Merdeka, Jakarta Pusat</p>
                 <p><i class="fa fa-phone-alt me-3"></i>+62 345 67890</p>
-                <p><i class="fa fa-envelope me-3"></i>bookpedia@gmail.com</p>
+                <p><i class="fa fa-envelope me-3"></i>support@bookpedia.org</p>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Quick Links</h4>
