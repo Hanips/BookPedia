@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2023 at 05:26 AM
+-- Generation Time: Jun 03, 2023 at 05:49 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,6 +43,20 @@ CREATE TABLE `buku` (
   `url_buku` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `buku`
+--
+
+INSERT INTO `buku` (`id`, `kode`, `judul`, `kategori_id`, `penerbit_id`, `isbn`, `pengarang`, `jumlah_halaman`, `sinopsis`, `rating`, `harga`, `foto`, `url_buku`) VALUES
+(3, 'TL02', 'Bulan', 1, 1, '144325525', 'Tere Liye', 655, 'Bukan bulan biasa!', 3.5, 199999, 'buku_TL02.jpg', 'https://fontawesomeicons.com/edit'),
+(4, 'TL03', 'Matahari', 1, 1, '433143414', 'Tere Liye', 344, 'Matahari yang tidak menyilaukan', 1.5, 300000, 'buku_TL03.jpg', 'https://fontawesomeicons.com/edit'),
+(5, 'TL04', 'Komet', 1, 1, '52345525', 'Tere Liye', 632, 'Komet jatuh ada di buku ini!', 4.5, 250000, 'buku_TL04.jpg', 'https://fontawesomeicons.com/edit'),
+(6, 'TL05', 'Komet Minor', 1, 1, '562455', 'Tere Liye', 766, 'Komet kecil, lanjutan komet biasa', 2.0, 150000, 'buku_TL05.jpg', 'https://fontawesomeicons.com/edit'),
+(7, 'YN01', 'Your Next Five Moves: Master the Art of Bu', 8, 5, '1253125', 'Patrick Bet-David', 950, 'Pelajari strategi bisnis disini!', 5.0, 350000, 'buku_YN01.jpg', 'https://fontawesomeicons.com/edit'),
+(8, 'PD10', 'test_jnjnljkn', 3, 2, '5217816', 'Hanipss', 5000, 'ini buku test', 1.0, 1000000, '', 'https://fontawesomeicons.com/edit'),
+(9, 'TES02', 'buku10jt', 6, 2, '153255', 'tesss', 455, 'afgaee', 4.0, 10000000, '', 'https://fontawesomeicons.com/edit'),
+(10, 'TES03', 'buku1M', 2, 3, '124124', 'njkfankjn', 324, 'Pelajari strategi bisnis disini!', 5.0, 1000000000, '', 'https://fontawesomeicons.com/edit');
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +67,20 @@ CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
   `nama` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id`, `nama`) VALUES
+(8, 'Biografi'),
+(7, 'Ensiklopedia'),
+(6, 'Fiksi'),
+(3, 'Kamus'),
+(4, 'Komik'),
+(2, 'Majalah'),
+(5, 'Manga'),
+(1, 'Novel');
 
 -- --------------------------------------------------------
 
@@ -85,6 +113,17 @@ CREATE TABLE `pelanggan` (
   `foto` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `pelanggan` (`id`, `nama`, `email`, `password`, `hp`, `foto`) VALUES
+(1, 'Hanief W', 'hanief@gmail.com', 'hanief123', '08128788908', 'pelanggan_.jpg'),
+(2, 'Rico', 'rico@gmail.com', 'rico123', '08128788908', 'pelanggan_Rico.jpg'),
+(3, 'Silva', 'silva@gmail.com', 'silva123', '081278686', 'pelanggan_Silva.jpg'),
+(4, 'Firman', 'firman@gmail.com', 'firman123', '0867376734', 'pelanggan_Firman.jpg'),
+(5, 'Aminullah', 'aminullah@gmail.com', 'aminullah123', '08126767645', 'pelanggan_Aminullah.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -111,6 +150,17 @@ CREATE TABLE `penerbit` (
   `nama` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `penerbit`
+--
+
+INSERT INTO `penerbit` (`id`, `nama`) VALUES
+(3, 'Bentang Pustaka'),
+(1, 'Gramedia Pustaka Utama'),
+(2, 'Mizan Pustaka'),
+(4, 'Penerbit Erlangga'),
+(5, 'Penerbit Republika');
+
 -- --------------------------------------------------------
 
 --
@@ -125,6 +175,20 @@ CREATE TABLE `pesanan` (
   `tgl` datetime NOT NULL DEFAULT current_timestamp(),
   `ket` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `pesanan`
+--
+
+INSERT INTO `pesanan` (`id`, `kode`, `buku_id`, `pelanggan_id`, `tgl`, `ket`) VALUES
+(1, 'PES01', 3, 1, '2023-06-02 13:36:34', 'Lunas'),
+(3, 'PES03', 5, 3, '2023-06-02 13:41:21', 'Belum Lunas'),
+(4, 'PES04', 6, 4, '2023-06-02 13:41:44', 'Pending'),
+(5, 'PES02', 3, 2, '2023-06-02 13:42:14', 'Belum Lunas'),
+(6, 'PES05', 7, 5, '2023-06-02 13:42:33', 'Lunas'),
+(9, 'PES06', 5, 1, '2023-06-03 09:33:06', 'Done'),
+(10, 'PES07', 7, 4, '2023-06-03 09:34:27', 'Lunas'),
+(11, 'TES02', 9, 1, '2023-06-03 09:35:47', 'ageragerw');
 
 --
 -- Indexes for dumped tables
@@ -195,13 +259,13 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -213,25 +277,25 @@ ALTER TABLE `member`
 -- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `penerbit`
 --
 ALTER TABLE `penerbit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
