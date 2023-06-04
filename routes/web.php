@@ -23,6 +23,12 @@ Route::get('/promo', function () {
     return view('landingpage.promo');
 });
 
+Route::get('/contact', function () {
+    return view('landingpage.contact');
+});
+
+Route::get('/profile', [PelangganController::class, 'dataPelanggan']);
+
 //------- ADMIN PAGE
 Route::get('/buku', function () {
     return view('buku.index');

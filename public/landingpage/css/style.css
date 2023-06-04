@@ -289,8 +289,8 @@
 
 /*** Testimonial ***/
 .testimonial-carousel .owl-item .testimonial-item img {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
 }
 
 .testimonial-carousel .owl-item .testimonial-item,
@@ -336,6 +336,15 @@
     color: #FFFFFF;
     background: var(--primary);
 }
+.testimonial-item .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .testimonial-item .d-flex img {
+    margin-bottom: 10px;
+  }  
 
 
 /*** Footer ***/

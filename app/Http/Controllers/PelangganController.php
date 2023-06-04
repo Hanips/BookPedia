@@ -21,6 +21,14 @@ class PelangganController extends Controller
         return view('pelanggan.index', compact('ar_pelanggan'));
     }
 
+    public function dataPelanggan()
+    {
+       //$ar_pelanggan = Pelanggan::all(); //eloquent
+       $ar_pelanggan = DB::table('pelanggan')->get();
+        return view('landingpage.profile', compact('ar_pelanggan'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */
