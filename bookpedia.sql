@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2023 at 05:49 AM
+-- Generation Time: Jun 05, 2023 at 02:04 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -39,6 +39,7 @@ CREATE TABLE `buku` (
   `sinopsis` text DEFAULT NULL,
   `rating` decimal(3,1) DEFAULT NULL,
   `harga` double NOT NULL,
+  `diskon` decimal(5,2) DEFAULT NULL,
   `foto` varchar(45) DEFAULT NULL,
   `url_buku` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -47,15 +48,15 @@ CREATE TABLE `buku` (
 -- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`id`, `kode`, `judul`, `kategori_id`, `penerbit_id`, `isbn`, `pengarang`, `jumlah_halaman`, `sinopsis`, `rating`, `harga`, `foto`, `url_buku`) VALUES
-(3, 'TL02', 'Bulan', 1, 1, '144325525', 'Tere Liye', 655, 'Bukan bulan biasa!', 3.5, 199999, 'buku_TL02.jpg', 'https://fontawesomeicons.com/edit'),
-(4, 'TL03', 'Matahari', 1, 1, '433143414', 'Tere Liye', 344, 'Matahari yang tidak menyilaukan', 1.5, 300000, 'buku_TL03.jpg', 'https://fontawesomeicons.com/edit'),
-(5, 'TL04', 'Komet', 1, 1, '52345525', 'Tere Liye', 632, 'Komet jatuh ada di buku ini!', 4.5, 250000, 'buku_TL04.jpg', 'https://fontawesomeicons.com/edit'),
-(6, 'TL05', 'Komet Minor', 1, 1, '562455', 'Tere Liye', 766, 'Komet kecil, lanjutan komet biasa', 2.0, 150000, 'buku_TL05.jpg', 'https://fontawesomeicons.com/edit'),
-(7, 'YN01', 'Your Next Five Moves: Master the Art of Bu', 8, 5, '1253125', 'Patrick Bet-David', 950, 'Pelajari strategi bisnis disini!', 5.0, 350000, 'buku_YN01.jpg', 'https://fontawesomeicons.com/edit'),
-(8, 'PD10', 'test_jnjnljkn', 3, 2, '5217816', 'Hanipss', 5000, 'ini buku test', 1.0, 1000000, '', 'https://fontawesomeicons.com/edit'),
-(9, 'TES02', 'buku10jt', 6, 2, '153255', 'tesss', 455, 'afgaee', 4.0, 10000000, '', 'https://fontawesomeicons.com/edit'),
-(10, 'TES03', 'buku1M', 2, 3, '124124', 'njkfankjn', 324, 'Pelajari strategi bisnis disini!', 5.0, 1000000000, '', 'https://fontawesomeicons.com/edit');
+INSERT INTO `buku` (`id`, `kode`, `judul`, `kategori_id`, `penerbit_id`, `isbn`, `pengarang`, `jumlah_halaman`, `sinopsis`, `rating`, `harga`, `diskon`, `foto`, `url_buku`) VALUES
+(3, 'TL02', 'Bulan', 1, 1, '144325525', 'Tere Liye', 655, 'Bukan bulan biasa!', 3.5, 199999, 30.00, 'buku_TL02.jpg', 'https://fontawesomeicons.com/edit'),
+(4, 'TL03', 'Matahari', 1, 1, '433143414', 'Tere Liye', 344, 'Matahari yang tidak menyilaukan', 1.5, 300000, 50.00, 'buku_TL03.jpg', 'https://fontawesomeicons.com/edit'),
+(5, 'TL04', 'Komet', 1, 1, '52345525', 'Tere Liye', 632, 'Komet jatuh ada di buku ini!', 4.5, 250000, NULL, 'buku_TL04.jpg', 'https://fontawesomeicons.com/edit'),
+(6, 'TL05', 'Komet Minor', 1, 1, '562455', 'Tere Liye', 766, 'Komet kecil, lanjutan komet biasa', 2.0, 150000, 30.00, 'buku_TL05.jpg', 'https://fontawesomeicons.com/edit'),
+(7, 'YN01', 'Your Next Five Moves: Master the Art of Bu', 8, 5, '1253125', 'Patrick Bet-David', 950, 'Pelajari strategi bisnis disini!', 5.0, 350000, NULL, 'buku_YN01.jpg', 'https://fontawesomeicons.com/edit'),
+(8, 'PD10', 'test_jnjnljkn', 3, 2, '5217816', 'Hanipss', 5000, 'ini buku test', 1.0, 1000000, NULL, '', 'https://fontawesomeicons.com/edit'),
+(9, 'TES02', 'buku10jt', 6, 2, '153255', 'tesss', 455, 'afgaee', 4.0, 10000000, NULL, '', 'https://fontawesomeicons.com/edit'),
+(10, 'TES03', 'buku1M', 2, 3, '124124', 'njkfankjn', 324, 'Pelajari strategi bisnis disini!', 5.0, 1000000000, NULL, '', 'https://fontawesomeicons.com/edit');
 
 -- --------------------------------------------------------
 
@@ -283,7 +284,7 @@ ALTER TABLE `pelanggan`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `penerbit`
@@ -295,7 +296,7 @@ ALTER TABLE `penerbit`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
