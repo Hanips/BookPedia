@@ -30,25 +30,42 @@
                                 <div class="product-item">
                                     <div class="position-relative bg-light overflow-hidden">
                                         @empty($buku->foto)
-                                          <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">
+                                            <div class="image-container">
+                                                <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover;">
+                                            </div>
                                         @else
-                                          @php
-                                            $fotoPath = 'landingpage/img/' . $buku->foto;
-                                            $fotoUrl = url($fotoPath);
-                                          @endphp
-                                          @if (file_exists(public_path($fotoPath)))
-                                            <img src="{{ $fotoUrl }}" class="img-fluid" alt="Foto e-book">
-                                          @else
-                                            <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">
-                                          @endif
+                                            @php
+                                                $fotoPath = 'landingpage/img/' . $buku->foto;
+                                                $fotoUrl = url($fotoPath);
+                                            @endphp
+                                            @if (file_exists(public_path($fotoPath)))
+                                                <div class="image-container">
+                                                    <img src="{{ $fotoUrl }}" class="img-fluid" alt="Foto e-book">
+                                                </div>
+                                            @else
+                                                <div class="image-container">
+                                                    <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover;">
+                                                </div>
+                                            @endif
                                         @endempty
                                         <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 py-0 px-1">Best Seller</div>
                                     </div>
                                     <div class="text-center">
                                         <a class="d-block h8 mb-2 text-truncate text-dark capitalize" href="" title="{{ $buku->judul }}"><b>{{ $buku->judul }}</b></a>
                                         <p>{{ $buku->kategori->nama }}</p>
-                                        <span style="color: #0261ae;" class="me-1"><b>Rp. {{ number_format($buku->harga, 0, ',', '.') }}</b></span>
-
+                                        @if ($buku->diskon > 0)
+                                        @php
+                                            $hargaDiskon = $buku->harga - ($buku->harga * $buku->diskon / 100);
+                                        @endphp
+                                            <div class="price-container">
+                                                <span style="text-decoration: line-through; color: #9a9a9a;">Rp. {{ number_format($buku->harga, 0, ',', '.') }}</span><br>
+                                                <span style="color: #0261ae;">Rp. {{ number_format($hargaDiskon, 0, ',', '.') }}</span>
+                                            </div>
+                                        @else
+                                        <div class="price-container">
+                                            <span style="color: #0261ae;">Rp. {{ number_format($buku->harga, 0, ',', '.') }}</span>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </a>

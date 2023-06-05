@@ -31,6 +31,12 @@ class BukuController extends Controller
         return view('landingpage.hero', compact('ar_buku'));
     }
 
+    public function bukuDiskon()
+    {
+        $ar_buku = Buku::where('diskon', '>', 0)->get();
+        return view('landingpage.promo', compact('ar_buku'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -60,6 +66,7 @@ class BukuController extends Controller
             'sinopsis' => 'nullable|max:100',
             'rating' => 'required|numeric|max:5',
             'harga' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+            'diskon' => 'nullable|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //KB
             'url_buku' => 'required|max:255',
         ],
@@ -85,6 +92,7 @@ class BukuController extends Controller
             'rating.max'=>'Rating Maksimal 5 Bintang',
             'harga.required'=>'Harga Wajib Diisi',
             'harga.regex'=>'Harga Harus Berupa Angka',
+            'diskon.regex'=>'Diskon Harus Berupa Angka',
             'foto.min'=>'Ukuran file kurang 2 KB',
             'foto.max'=>'Ukuran file melebihi 500 KB',
             'foto.image'=>'File foto bukan gambar',
@@ -115,6 +123,7 @@ class BukuController extends Controller
                 'sinopsis'=>$request->sinopsis,
                 'rating'=>$request->rating,
                 'harga'=>$request->harga,
+                'diskon'=>$request->diskon,
                 'foto'=>$fileName,
                 'url_buku'=>$request->url_buku,
             ]);
@@ -171,6 +180,7 @@ class BukuController extends Controller
             'sinopsis' => 'nullable|max:100',
             'rating' => 'required|numeric|max:5',
             'harga' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+            'diskon' => 'nullable|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //kb
             'url_buku' => 'required|max:255',
         ],
@@ -196,6 +206,7 @@ class BukuController extends Controller
             'rating.max'=>'Rating Maksimal 5 Bintang',
             'harga.required'=>'Harga Wajib Diisi',
             'harga.regex'=>'Harga Harus Berupa Angka',
+            'diskon.regex'=>'Diskon Harus Berupa Angka',
             'foto.min'=>'Ukuran file kurang 2 KB',
             'foto.max'=>'Ukuran file melebihi 500 KB',
             'foto.image'=>'File foto bukan gambar',
@@ -236,6 +247,7 @@ class BukuController extends Controller
                 'sinopsis'=>$request->sinopsis,
                 'rating'=>$request->rating,
                 'harga'=>$request->harga,
+                'diskon'=>$request->diskon,
                 'foto'=>$fileName,
                 'url_buku'=>$request->url_buku,
             ]);

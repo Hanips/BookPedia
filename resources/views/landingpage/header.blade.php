@@ -33,13 +33,13 @@
                         <a href="" class="dropdown-item">Biografi</a>
                     </div>
                 </div>
-                <a href="" class="nav-item nav-link">Tim Kami</a>
+                <a href="{{ url('/contact') }}" class="nav-item nav-link">Tim Kami</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
                     <small class="fa fa-search text-body"></small>
                 </a>
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
+                <a class="btn-sm-square bg-white rounded-circle ms-3" href="{{ url('/profile') }}">
                     <small class="fa fa-user text-body"></small>
                 </a>
                 <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
