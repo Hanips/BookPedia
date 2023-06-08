@@ -73,6 +73,10 @@
                     <div class="invalid-feedback" data-sb-feedback="harga:required">Harga is required.</div>
                 </div>
                 <div class="form-floating mb-3">
+                    <input class="form-control" name="diskon" value="" id="diskon" type="number" placeholder="Diskon" />
+                    <label for="diskon">Diskon</label>
+                </div>
+                <div class="form-floating mb-3">
                     <input class="form-control" name="foto" value="" id="foto" type="file" placeholder="foto" />
                     <label for="foto">Foto</label>
                 </div>

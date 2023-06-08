@@ -70,6 +70,7 @@
                 <div class="ms-3">
                     <h5 class="mb-1">Aminullah</h5>
                     <span>Laporan</span>
+
                 </div>
             </div>
         </div>
@@ -134,7 +135,6 @@
                         <div class="col-12">
                             <a class="btn btn-primary rounded-pill py-3 px-5" href="{{ url('/contact') }}" >Kirim</a>
                         </div>
-
                     </div>
                 </form>
             </div>

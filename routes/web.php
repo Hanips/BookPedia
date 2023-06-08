@@ -29,6 +29,7 @@ Route::get('/contact', function () {
 
 Route::get('/profile', [PelangganController::class, 'dataPelanggan']);
 
+
 //------- ADMIN PAGE
 Route::get('/buku', function () {
     return view('buku.index');
@@ -48,8 +49,13 @@ Route::get('/pesanan', function () {
 
 //------- LANDING PAGE
 Route::get('/', [BukuController::class, 'dataBuku']);
+Route::get('/promo', [BukuController::class, 'bukuDiskon']);
 Route::resource('buku', BukuController::class);
 Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');
+Route::get('/contact', function () {
+    return view('landingpage.contact');
+});
+Route::get('/profile', [PelangganController::class, 'dataPelanggan']);
 
 //------- ADMIN PAGE
 Route::get('/admin', [DashboardController::class, 'index'])->name('adminpage.home');

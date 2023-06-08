@@ -364,6 +364,15 @@
     margin-bottom: 10px;
   }  
 
+.testimonial-item .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.testimonial-item .d-flex img {
+    margin-bottom: 10px;
+}  
 
 /*** Footer ***/
 .footer {

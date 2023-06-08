@@ -59,6 +59,7 @@
                     <p>Jumlah Halaman: {{ $rs->jumlah_halaman }}</p>
                     <p>Sinopsis: {{ $rs->sinopsis }}</p>
                     <p>Harga: Rp. {{ number_format($rs->harga, 0, ',', '.') }}</p>
+                    <p>Diskon: {{ $rs->diskon }}%</p>
                     <p><b>URL Buku: <a href="{{ $rs->url_buku }}" style="text-decoration: none; color: black;">{{ $rs->url_buku }}</a></b></p>
                     
                     <a href="{{ url('/buku') }}" class="btn btn-primary">Go Back</a>

@@ -77,6 +77,10 @@
             <div class="invalid-feedback" data-sb-feedback="harga:required">Harga is required.</div>
         </div>
         <div class="form-floating mb-3">
+            <input class="form-control" name="diskon" value="{{ $row->diskon }}" id="diskon" type="number" placeholder="Diskon" />
+            <label for="diskon">Diskon</label>
+        </div>
+        <div class="form-floating mb-3">
             <input class="form-control" name="foto" value="{{ $row->foto }}" id="foto" type="file" placeholder="Foto" />
             <label for="foto">Foto</label>
         </div>
