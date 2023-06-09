@@ -19,37 +19,44 @@
           @endif
           <h5 class="my-3">{{ $ar_pelanggan[0]->nama ?? '' }}</h5>
           <div class="d-flex justify-content-center mb-2">
-           <button type="button" class="btn btn-primary">Ubah Profil</button>
+           <button type="button" class="btn btn-primary rounded-pill-custom">Ubah Profil</button>
          </div>
        </div>
      </div>
+
      <div class="card mb-4 mb-lg-0">
       <div class="card-body p-0">
-        <ul class="list-group list-group-flush rounded-3 d-flex flex-column">
-          <li class="list-group-item dropdown d-flex justify-content-center align-items-center p-2">
-            <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person fs-3" style="color: #080202;"></i>
-              <span class="ms-2 custom-text" style="color: black;">Akun Saya</span>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Profil</a></li>
-              <li><a class="dropdown-item" href="#">Alamat</a></li>
-              <li><a class="dropdown-item" href="#">Ubah Password</a></li>
-            </ul>
-          </li>
-          <li class="list-group-item dropdown d-flex justify-content-center align-items-center p-2">
-            <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-cart4 fs-4" style="color: #080202;"></i>
-              <span class="ms-2 custom-text" style="color: black;">Pesanan Saya</span>
-            </a>
-          </li>
-          <li class="list-group-item dropdown d-flex justify-content-center align-items-center p-2">
-            <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-bell fs-4" style="color: #080202;"></i>
-              <span class="ms-2 custom-text" style="color: black;">Notifikasi</span>
-            </a>
-          </li>
-        </ul>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <i class="fa fa-user fs-5"></i> <b>Akun Saya</b>
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <nav class="nav flex-column">
+                <a class="nav-link" href="#">Profil</a>
+                <a class="nav-link" href="#">Alamat</a>
+                <a class="nav-link" href="#">Ubah Password</a>
+              </nav>
+            </div>
+          </div>
+          
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                <i class="fa fa-shopping-bag fs-5"></i>
+                <b>Pesanan Saya</b>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                <i class="fa fa-bell fs-5"></i>
+                <b>Notifikasi</b>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -59,7 +66,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-sm-3">
-            <h3 class="mb-0">Profil Saya</h3>
+            <h5 class="mb-0">Profil Saya</h5>
           </div>
         </div>
         <hr/>
@@ -68,7 +75,7 @@
             <p class="mb-0">Nama</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">{{ $ar_pelanggan[0]->nama ?? '' }}</p>
+            <p class="text-muted mb-0">:&nbsp;{{ $ar_pelanggan[0]->nama ?? '' }}</p>
           </div>
         </div>
         <hr>
@@ -77,7 +84,7 @@
             <p class="mb-0">Email</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">{{ $ar_pelanggan[0]->email ?? '' }}</p>
+            <p class="text-muted mb-0">:&nbsp;{{ $ar_pelanggan[0]->email ?? '' }}</p>
           </div>
         </div>
         <hr>
@@ -86,7 +93,7 @@
             <p class="mb-0">Phone</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">{{ $ar_pelanggan[0]->hp ?? '' }}</p>
+            <p class="text-muted mb-0">:&nbsp;{{ $ar_pelanggan[0]->hp ?? '' }}</p>
           </div>
         </div>
       </div>

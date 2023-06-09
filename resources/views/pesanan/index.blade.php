@@ -10,6 +10,9 @@
         <div class="card mb-4">
             <div class="card-header">
                 <a href="{{ route('pesanan.create') }}" class="btn btn-primary">Tambah</a>
+                <a href="{{ url('/pesanan-excel') }}" class="btn btn-success" title="Export to Excel">
+                    <i class="fa-solid fa-file-excel fa-lg"></i>
+                </a>
             </div>
             <div class="card-body">
                 <table id="datatablesSimple">
@@ -35,40 +38,40 @@
                     </tfoot>
                     <tbody>
                         @php
-		                $no = 1;
+                        $no = 1;
                         @endphp
-		                @foreach($ar_pesanan as $pesanan)
-		                <tr>
-		                	<th>{{ $no }}</th>
-		                	<td>{{ $pesanan->nama }}</td>
-		                	<td>{{ $pesanan->judul }}</td>
-		                	<td>{{ $pesanan->ket }}</td>
-		                	<td>{{ $pesanan->tgl }}</td>
-		                	<td>
-                                <div class="btn-group">
-                                    <a class="btn btn-info btn-sm me-1" href="{{ route('pesanan.show', $pesanan->id) }}" title="Detail">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a class="btn btn-warning btn-sm me-1" href="{{ route('pesanan.edit', $pesanan->id) }}" title="Ubah">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <form method="POST" action="{{ route('pesanan.destroy', $pesanan->id) }}" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <input type="hidden" name="idx" value=""/>
-                                    </form>
-                                </div>
-                            </td>  
-		                </tr>
-		                @php $no++ @endphp
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        @foreach($ar_pesanan as $pesanan)
+                        <tr>
+                         <th>{{ $no }}</th>
+                         <td>{{ $pesanan->nama }}</td>
+                         <td>{{ $pesanan->judul }}</td>
+                         <td>{{ $pesanan->ket }}</td>
+                         <td>{{ $pesanan->tgl }}</td>
+                         <td>
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-sm me-1" href="{{ route('pesanan.show', $pesanan->id) }}" title="Detail">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a class="btn btn-warning btn-sm me-1" href="{{ route('pesanan.edit', $pesanan->id) }}" title="Ubah">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <form method="POST" action="{{ route('pesanan.destroy', $pesanan->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    <input type="hidden" name="idx" value=""/>
+                                </form>
+                            </div>
+                        </td>  
+                    </tr>
+                    @php $no++ @endphp
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 </main>
 @endsection

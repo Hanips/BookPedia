@@ -8,6 +8,8 @@ use App\Models\Pesanan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //jika pakai query builder
+use App\Exports\PesananExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PesananController extends Controller
 {
@@ -145,6 +147,10 @@ class PesananController extends Controller
         $pesanan->delete();
         return redirect()->route('pesanan.index')
                         ->with('success','Data Pesanan Berhasil Dihapus');
+    }
+    public function pesananExcel()
+    {
+        return Excel::download(new PesananExport, 'data_pesanan_'.date('d-m-Y').'.xlsx');
     }
 
 }

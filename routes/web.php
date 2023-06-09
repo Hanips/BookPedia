@@ -34,6 +34,10 @@ Route::get('/profile', [PelangganController::class, 'dataPelanggan']);
 Route::get('/buku', function () {
     return view('buku.index');
 });
+
+Route::get('/buku-excel', [BukuController::class, 'bukuExcel']);
+Route::get('/pesanan-excel', [PesananController::class, 'pesananExcel']);
+
 Route::get('/kategori', function () {
     return view('kategori.index');
 });
