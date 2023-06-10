@@ -8,6 +8,8 @@ use App\Models\Penerbit; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //jika pakai query builder
+use App\Exports\BukuExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BukuController extends Controller
 {
@@ -272,6 +274,11 @@ class BukuController extends Controller
         $buku->delete();
         return redirect()->route('buku.index')
                         ->with('success', 'Data Buku Berhasil Dihapus');
+    }
+    
+    public function bukuExcel()
+    {
+        return Excel::download(new BukuExport, 'data_buku_'.date('d-m-Y').'.xlsx');
     }
     
 }

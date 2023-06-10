@@ -6,6 +6,8 @@ use App\Models\Pelanggan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //query builder
+use App\Exports\PelangganExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PelangganController extends Controller
 {

@@ -6,6 +6,79 @@
     --dark: #111111;
 }
 
+.rounded-pill-custom {
+    border-radius: 8px; 
+  }
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: -1px;
+    line-height: 2;
+    color: #454545;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+  }
+
+  .nav-link:hover {
+    color: #0261ae;
+  }
+
+  .nav-link::after{
+    color: #454545;
+  }
+
+  .nav-link .fs-5 {
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-left: 120px;
+    color: #454545;
+  }
+
+  .accordion-body .nav-link:hover {
+    color: #0261ae;
+  }
+
+  .accordion-button:hover {
+    color: #0261ae;
+  }
+  .accordion-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .accordion-body .nav-link {
+    margin-bottom: -25px; 
+    display: flex;
+    margin-left: 135px;
+    color: #454545;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+  }
+
+  .accordion-button::after {
+    display: none;
+    color: #454545;
+  }
+
+  .accordion-button .fs-5 {
+    margin-right: 10px;
+    margin-left: 118px;
+    color: #454545;
+  }
+
+  .list-group-item.dropdown a.dropdown-toggle {
+    color: black;
+    transition: color 0.3s;
+  }
+
+  .list-group-item.dropdown a.dropdown-toggle:hover,
+  .list-group-item.dropdown.show a.dropdown-toggle {
+    color: #0261ae !important;
+  }
+  
 .back-to-top {
     position: fixed;
     display: none;
@@ -336,6 +409,15 @@
     color: #FFFFFF;
     background: var(--primary);
 }
+.testimonial-item .d-flex {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .testimonial-item .d-flex img {
+    margin-bottom: 10px;
+  }  
 
 .testimonial-item .d-flex {
     flex-direction: column;

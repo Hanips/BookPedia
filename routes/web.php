@@ -19,10 +19,25 @@ Route::get('/produk', function () {
     return view('landingpage.produk');
 });
 
+Route::get('/promo', function () {
+    return view('landingpage.promo');
+});
+
+Route::get('/contact', function () {
+    return view('landingpage.contact');
+});
+
+Route::get('/profile', [PelangganController::class, 'dataPelanggan']);
+
+
 //------- ADMIN PAGE
 Route::get('/buku', function () {
     return view('buku.index');
 });
+
+Route::get('/buku-excel', [BukuController::class, 'bukuExcel']);
+Route::get('/pesanan-excel', [PesananController::class, 'pesananExcel']);
+
 Route::get('/kategori', function () {
     return view('kategori.index');
 });
