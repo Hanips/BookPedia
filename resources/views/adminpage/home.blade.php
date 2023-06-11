@@ -1,5 +1,6 @@
 @extends('adminpage.index')
 @section('content')
+@if (Auth::user()->role != 'Pelanggan')
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Dashboard</h1>
@@ -64,4 +65,7 @@
             </div>
         </div>
     </main>
+@else
+    @include('adminpage.access_denied') 
+@endif
 @endsection

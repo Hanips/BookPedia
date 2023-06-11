@@ -20,12 +20,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                <a href="{{ url('/promo') }}" class="nav-item nav-link">Promo</a>
+                <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
                 <a href="" class="nav-item nav-link">Ebook</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kategori</a>
-                    <div class="dropdown-menu m-0">
+                    <div class="dropdown-menu m-0 dropdown-menu-dark">
                         <a href="" class="dropdown-item">Novel</a>
                         <a href="" class="dropdown-item">Komik</a>
                         <a href="" class="dropdown-item">Majalah</a>
@@ -33,18 +32,46 @@
                         <a href="" class="dropdown-item">Biografi</a>
                     </div>
                 </div>
-                <a href="{{ url('/contact') }}" class="nav-item nav-link">Tim Kami</a>
+                <a href="{{ url('/promo') }}" class="nav-item nav-link {{ request()->is('promo') ? 'active' : '' }}">Promo</a>
+                <a href="{{ url('/contact') }}" class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Tim Kami</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
-                    <small class="fa fa-search text-body"></small>
-                </a>
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="{{ url('/profile') }}">
-                    <small class="fa fa-user text-body"></small>
-                </a>
-                <a class="btn-sm-square bg-white rounded-circle ms-3" href="">
-                    <small class="fa fa-shopping-bag text-body"></small>
-                </a>
+                <div class="d-flex align-items-center">
+                    <a href="#" class="btn btn-sm bg-white btn-outline-dark rounded-circle me-3">
+                        <i class="fas fa-search text-body"></i>
+                    </a>
+                    @guest
+                    <div class="nav-item dropdown">
+                        <!-- Tampilkan tombol Login dan Register jika pengguna belum login -->
+                        <a href="#" class="btn-sm-square bg-white btn-outline-dark rounded-circle ms-3" data-bs-toggle="dropdown"><small class="fa fa-user text-body"></small></a>
+                        <div class="dropdown-menu m-0 dropdown-menu-dark">
+                            <a href="{{ route('login') }}" class="dropdown-item">Login</a>
+                            <a href="{{ route('register') }}" class="dropdown-item">Register</a>
+                        </div>
+                    </div> 
+                    @else
+                    <div class="nav-item dropdown">
+                        <!-- Tampilkan nama pengguna, keranjang, dan logout jika pengguna telah login -->
+                        <a href="#" class="btn btn-md bg-white btn-outline-dark rounded-pill me-3 wow fadeIn" data-wow-delay="0.1s" data-bs-toggle="dropdown">
+                            <small class="fa fa-user text-body"></small> | {{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu m-0 dropdown-menu-dark">
+                            <a href="{{ url('/profile') }}" class="dropdown-item {{ request()->is('profile') ? 'active' : '' }}">Profil</a>
+                            <a href="" class="dropdown-item {{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a>
+                            <hr class="dropdown-divider">
+                            @if (Auth::user()->role != 'Pelanggan')
+                                <a href="{{ url('/admin') }}" class="dropdown-item">Dashboard</a>
+                            @endif
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                    @endguest
+                </div>
             </div>
         </div>
     </nav>

@@ -12,12 +12,20 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body text-center">
-          @if(empty($ar_pelanggan->foto))
+          @empty($ar_pelanggan->foto)
           <img src="{{ asset('landingpage/img/noimg.png') }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
           @else
-          <img src="{{ asset('landingpage/img/'.$ar_pelanggan->foto) }}" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
-          @endif
-          <h5 class="my-3">{{ $ar_pelanggan[0]->nama ?? '' }}</h5>
+            @php
+              $fotoPath = 'landingpage/img/' . $ar_pelanggan->foto;
+              $fotoUrl = url($fotoPath);
+            @endphp
+            @if (file_exists(public_path($fotoPath)))
+              <img src="{{ $fotoUrl }}" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+            @else
+              <img src="{{ asset('landingpage/img/noimg.png') }}" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+            @endif
+          @endempty
+          <h5 class="my-3">{{ Auth::user()->name }}</h5>
           <div class="d-flex justify-content-center mb-2">
            <button type="button" class="btn btn-primary rounded-pill-custom">Ubah Profil</button>
          </div>
@@ -75,7 +83,7 @@
             <p class="mb-0">Nama</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">:&nbsp;{{ $ar_pelanggan[0]->nama ?? '' }}</p>
+            <p class="text-muted mb-0">:&nbsp;{{ Auth::user()->name }}</p>
           </div>
         </div>
         <hr>
@@ -84,7 +92,7 @@
             <p class="mb-0">Email</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">:&nbsp;{{ $ar_pelanggan[0]->email ?? '' }}</p>
+            <p class="text-muted mb-0">:&nbsp;{{ Auth::user()->email }}</p>
           </div>
         </div>
         <hr>
@@ -93,7 +101,11 @@
             <p class="mb-0">Phone</p>
           </div>
           <div class="col-sm-9">
-            <p class="text-muted mb-0">:&nbsp;{{ $ar_pelanggan[0]->hp ?? '' }}</p>
+            @if (!empty(Auth::user()->hp))
+              <p class="text-muted mb-0">:&nbsp;{{ Auth::user()->hp }}</p>
+            @else
+              <p class="text-muted mb-0">:&nbsp;-</p>
+            @endif
           </div>
         </div>
       </div>

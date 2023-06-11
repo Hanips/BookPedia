@@ -3,7 +3,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="{{ url('/admin') }}">
+                <a class="nav-link {{ request()->is('admin') ? 'active' : '' }}" href="{{ url('/admin') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     Dashboard
                 </a>
@@ -15,31 +15,29 @@
                 </a>
                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ url('/buku') }}">Buku</a>
-                        <a class="nav-link" href="{{ url('/kategori') }}">Kategori</a>
-                        <a class="nav-link" href="{{ url('/pelanggan') }}">Pelanggan</a>
-                        <a class="nav-link" href="{{ url('/penerbit') }}">Penerbit</a>
-                        <a class="nav-link" href="{{ url('/pesanan') }}">Pesanan</a>
+                        <a class="nav-link {{ request()->is('buku') ? 'active' : '' }}" href="{{ url('/buku') }}">Buku</a>
+                        <a class="nav-link {{ request()->is('kategori') ? 'active' : '' }}" href="{{ url('/kategori') }}">Kategori</a>
+                        <a class="nav-link {{ request()->is('pelanggan') ? 'active' : '' }}" href="{{ url('/pelanggan') }}">Pelanggan</a>
+                        <a class="nav-link {{ request()->is('penerbit') ? 'active' : '' }}" href="{{ url('/penerbit') }}">Penerbit</a>
+                        <a class="nav-link {{ request()->is('pesanan') ? 'active' : '' }}" href="{{ url('/pesanan') }}">Pesanan</a>
                     </nav>
                 </div>
-                <div class="sb-sidenav-menu-heading">Akun</div>
-                <a class="nav-link" href="">
-                    <div class="sb-nav-link-icon"><i class='fas fa-user-edit'></i></div>
-                    Kelola Member
-                </a>
-                <a class="nav-link" href="">
-                    <div class="sb-nav-link-icon"><i class='fas fa-sign-in-alt'></i></div>
-                    Login
-                </a>
-                <a class="nav-link" href="">
-                    <div class="sb-nav-link-icon"><i class='fa fa-user-plus'></i></div>
-                    Register
-                </a>
+                @if(Auth::user()->role == 'Administrator')
+                    <div class="sb-sidenav-menu-heading">Akun</div>
+                    <a class="nav-link" href="">
+                        <div class="sb-nav-link-icon"><i class='fas fa-user-edit'></i></div>
+                        Kelola User
+                    </a>
+                @endif
             </div>
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Masuk Sebagai:</div>
-            NamaAkun
+            @if(Auth::user()->role != 'Pelanggan')
+            {{ Auth::user()->role }}
+            @else
+            {{ Auth::user()->role }} - Terlarang
+            @endif
         </div>
     </nav>
 </div>

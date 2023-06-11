@@ -48,7 +48,11 @@
                                                 </div>
                                             @endif
                                         @endempty
+                                        @if ($buku->diskon > 0)
+                                            <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 py-0 px-1">{{ number_format($buku->diskon, 0, ',', '.') }}%</div>
+                                        @else
                                         <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-2 py-0 px-1">Best Seller</div>
+                                        @endif
                                     </div>
                                     <div class="text-center">
                                         <a class="d-block h8 mb-2 text-truncate text-dark capitalize" href="" title="{{ $buku->judul }}"><b>{{ $buku->judul }}</b></a>
