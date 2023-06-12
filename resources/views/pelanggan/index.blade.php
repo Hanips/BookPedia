@@ -39,7 +39,7 @@
                             @foreach($ar_pelanggan as $pelanggan)
                             <tr>
                                 <th>{{ $no }}</th>
-                                <td>{{ $pelanggan->nama }}</td>
+                                <td>{{ $pelanggan->name }}</td>
                                 <td>{{ $pelanggan->email }}</td>
                                 <td>{{ $pelanggan->hp }}</td>
                                 <td>

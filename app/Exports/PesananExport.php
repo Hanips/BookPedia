@@ -16,8 +16,8 @@ class PesananExport implements FromCollection, WithHeadings
     public function collection()
     {
         $ar_pesanan = Pesanan::join('buku', 'buku.id', '=', 'pesanan.buku_id')
-            ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.pelanggan_id')
-            ->select('pesanan.kode', 'pelanggan.nama','buku.judul', 'pesanan.tgl', 'pesanan.ket'  )
+            ->join('users', 'users.id', '=', 'pesanan.user_id')
+            ->select('pesanan.kode', 'users.name','buku.judul', 'pesanan.tgl', 'pesanan.ket'  )
             ->get();
         return $ar_pesanan;
     }

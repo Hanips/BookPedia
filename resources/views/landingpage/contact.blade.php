@@ -25,7 +25,7 @@
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
             <div class="testimonial-item position-relative bg-white p-5 mt-4">
                 <div class="d-flex align-items-center">
-                    <img class="img-fluid" src="{{ asset('landingpage/img/hanief.jpg') }}" alt="" style="width: 330px; height: 340px;">
+                    <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/1.jpg') }}" alt="" style="width: 330px; height: 270px;">
                     <br/>
                     <div class="ms-3">
                         <h5>Hanief Widya Wardhana</h5>
@@ -35,7 +35,7 @@
             </div>
             <div class="testimonial-item position-relative bg-white p-5 mt-4"> 
                 <div class="d-flex align-items-center">
-                    <img class="img-fluid" src="{{ asset('landingpage/img/silva.jpg') }}" alt="" style="width: 330px; height: 340px;">
+                    <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/4.jpg') }}" alt="" style="width: 330px; height: 270px;">
                     <br/>
                     <div class="ms-3">
                         <h5 class="mb-1">Silpa Ishari Pasaribu</h5>
@@ -45,7 +45,7 @@
             </div>
             <div class="testimonial-item position-relative bg-white p-5 mt-4">
                 <div class="d-flex align-items-center">
-                    <img class="img-fluid" src="{{ asset('landingpage/img/rico.jpg') }}" alt="" style="width: 330px; height: 340px;">
+                    <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/5.jpg') }}" alt="" style="width: 330px; height: 270px;">
                     <br/>
                     <div class="ms-3">
                         <h5 class="mb-1">Rico Priyono</h5>
@@ -55,7 +55,7 @@
             </div>
             <div class="testimonial-item position-relative bg-white p-5 mt-4">
                 <div class="d-flex align-items-center">
-                  <img class="img-fluid" src="{{ asset('landingpage/img/firman.png') }}" alt="" style="width: 330px; height: 340px;">
+                  <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/3.jpg') }}" alt="" style="width: 330px; height: 270px;">
                   <br/>
                   <div class="ms-3">
                     <h5 class="mb-1">Firman Dwi Prabudi</h5>
@@ -65,7 +65,7 @@
         </div>
         <div class="testimonial-item position-relative bg-white p-5 mt-4">
             <div class="d-flex align-items-center">
-                <img class="img-fluid" src="{{ asset('landingpage/img/Aminullah.jpg') }}" alt="" style="width: 330px; height: 340px;">
+                <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/2.jpg') }}" alt="" style="width: 330px; height: 270px;">
                 <br/>
                 <div class="ms-3">
                     <h5 class="mb-1">Aminullah</h5>
@@ -77,6 +77,7 @@
     </div>
 </div>
 </div>
+
 <!-- Testimonial End -->
 
 <!-- Contact Start -->

@@ -1,5 +1,10 @@
-@extends('adminpage.index')
+@extends('landingpage.index')
 @section('content')
+<!-- Page Header Start -->
+<div class="container-fluid page-header wow fadeIn" data-wow-delay="0.1s">
+    <!-- Bagian header lainnya... -->
+</div><br/>
+<!-- Page Header End -->
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -9,18 +14,18 @@
         </ul>
     </div>
 @endif
-@if (Auth::user()->role != 'Pelanggan')
+@if (!empty(Auth::user()))
     <main>
         <div class="container-fluid px-4">
             <div class="container px-5 my-5">
-                <h2>Form Update Pelanggan</h2>
-                <form method="POST" action="{{ route('pelanggan.update', $row->id) }}" id="contactForm" enctype="multipart/form-data">
+                <h2>Ubah Profil</h2>
+                <form method="POST" action="{{ route('user.update', $row->id) }}" id="contactForm" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-floating mb-3">
                         <input class="form-control" name="name" value="{{ $row->name }}" id="name" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" />
-                        <label for="name">Pelanggan</label>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">Nama pelanggan is required.</div>
+                        <label for="name">Nama User</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">Nama user is required.</div>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" name="email" value="{{ $row->email }}" id="email" type="email" placeholder="Email" data-sb-validations="required" />
@@ -28,7 +33,7 @@
                         <div class="invalid-feedback" data-sb-feedback="email:required">Email is required.</div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password" disabled/>
+                        <input class="form-control" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password"/>
                         <label for="password">Password</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -42,8 +47,8 @@
                     </div>
                     <button class="btn btn-primary" name="proses" value="ubah" id="ubah" type="submit">Ubah</button>
                     <input type="hidden" name="id" value="{{ $row->id }}"/>
-                    <input type="hidden" name="password" value="{{ $row->password }}"/>
-                    <a href="{{ url('/pelanggan') }}" class="btn btn-danger">Batal</a>
+                    <input type="hidden" name="role" value="{{ $row->role }}"/>
+                    <a href="{{ url('/profile') }}" class="btn btn-danger">Batal</a>
                 </form>
             </div>
         </div>

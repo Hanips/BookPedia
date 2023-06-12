@@ -22,10 +22,10 @@
                         <div class="invalid-feedback" data-sb-feedback="kode:required">Kode Pesanan is required.</div>
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="pelanggan" aria-label="pelanggan">
+                        <select class="form-select" name="pelanggan" aria-label="Pelanggan">
                             <option value="">-- Pilih Pelanggan --</option>
                             @foreach ($ar_pelanggan as $pelanggan)
-                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
+                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->name }}</option>
                             @endforeach
                         </select>
                         <label for="pelanggan">Nama Pelanggan</label>

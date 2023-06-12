@@ -7,6 +7,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\UserController;
 
 // ------- LANDING PAGE -------
 Route::get('/produk', function () {
@@ -23,17 +24,19 @@ Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landing
 Route::get('/contact', function () {
     return view('landingpage.contact');
 });
-Route::get('/profile', [PelangganController::class, 'dataPelanggan'])->middleware('auth');
+Route::get('/profile', [UserController::class, 'dataUser'])->middleware('auth');
+Route::get('/ubah_profil/{id}', [UserController::class, 'ubahProfil'])->name('landingpage.profile_edit');
 
 // ------- ADMIN PAGE -------
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('adminpage.home');
+    Route::get('/buku', [BukuController::class, 'index']);
     Route::resource('buku', BukuController::class);
     Route::resource('kategori', KategoriController::class);
     Route::resource('pelanggan', PelangganController::class);
     Route::resource('penerbit', PenerbitController::class);
     Route::resource('pesanan', PesananController::class);
-    Route::get('/buku', [BukuController::class, 'index']);
+    Route::resource('user', UserController::class);
     Route::get('/buku-excel', [BukuController::class, 'bukuExcel']);
     Route::get('/pesanan-excel', [PesananController::class, 'pesananExcel']);
 });
@@ -42,7 +45,3 @@ Route::middleware('auth')->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/user', function () {
-    return view('user.index');
-});

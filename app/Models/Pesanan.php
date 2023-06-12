@@ -11,15 +11,15 @@ class Pesanan extends Model
     use HasFactory;
     protected $table = 'pesanan';
     protected $fillable = [
-        'kode','buku_id','pelanggan_id','ket'
+        'kode','buku_id','user_id','ket'
     ];
 
     public function buku(): BelongsTo
     {
         return $this->belongsTo(Buku::class);
     }
-    public function pelanggan(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Pelanggan::class);
+        return $this->belongsTo(User::class);
     }
 }

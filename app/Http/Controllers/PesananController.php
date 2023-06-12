@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku; //panggil model
-use App\Models\Pelanggan; //panggil model
+use App\Models\User; //panggil model
 use App\Models\Pesanan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,8 +20,8 @@ class PesananController extends Controller
     {
         $ar_pesanan = DB::table('pesanan')
                 ->join('buku', 'buku.id', '=', 'pesanan.buku_id')
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.pelanggan_id')
-                ->select('pesanan.*', 'buku.judul as judul', 'buku.harga as harga', 'pelanggan.nama as nama')
+                ->join('users', 'users.id', '=', 'pesanan.user_id')
+                ->select('pesanan.*', 'buku.judul as judul', 'buku.harga as harga', 'users.name as nama')
                 ->orderBy('pesanan.id', 'desc')
                 ->get();
         return view('pesanan.index', compact('ar_pesanan'));
@@ -33,7 +33,7 @@ class PesananController extends Controller
     public function create()
     {
         //ambil master untuk dilooping di select option
-        $ar_pelanggan = Pelanggan::all();
+        $ar_pelanggan = User::where('role', 'Pelanggan')->get();
         $ar_buku = Buku::all();
 
         //arahkan ke form input data
@@ -69,7 +69,7 @@ class PesananController extends Controller
         DB::table('pesanan')->insert(
             [
                 'kode'=>$request->kode,
-                'pelanggan_id'=>$request->pelanggan,
+                'user_id'=>$request->pelanggan,
                 'buku_id'=>$request->buku,
                 'ket'=>$request->ket,
             ]);
@@ -93,7 +93,7 @@ class PesananController extends Controller
     public function edit(string $id)
     {
         //ambil master untuk dilooping di select option
-        $ar_pelanggan = Pelanggan::all();
+        $ar_pelanggan = User::where('role', 'Pelanggan')->get();
         $ar_buku = Buku::all();
 
         //tampilkan data lama di form
@@ -129,7 +129,7 @@ class PesananController extends Controller
         DB::table('pesanan')->where('id',$id)->update(
             [
                 'kode'=>$request->kode,
-                'pelanggan_id'=>$request->pelanggan,
+                'user_id'=>$request->pelanggan,
                 'buku_id'=>$request->buku,
                 'ket'=>$request->ket,
             ]);

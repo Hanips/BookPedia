@@ -12,11 +12,11 @@
     <div class="col-lg-4">
       <div class="card mb-4">
         <div class="card-body text-center">
-          @empty($ar_pelanggan->foto)
+          @empty(Auth::user()->foto)
           <img src="{{ asset('landingpage/img/noimg.png') }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
           @else
             @php
-              $fotoPath = 'landingpage/img/' . $ar_pelanggan->foto;
+              $fotoPath = 'landingpage/img/' . Auth::user()->foto;
               $fotoUrl = url($fotoPath);
             @endphp
             @if (file_exists(public_path($fotoPath)))
@@ -27,8 +27,10 @@
           @endempty
           <h5 class="my-3">{{ Auth::user()->name }}</h5>
           <div class="d-flex justify-content-center mb-2">
-           <button type="button" class="btn btn-primary rounded-pill-custom">Ubah Profil</button>
-         </div>
+            <a href="{{ url('/ubah_profil', $user->id) }}">
+              <button type="button" class="btn btn-primary rounded-pill-custom">Ubah Profil</button>
+            </a>
+          </div>
        </div>
      </div>
 

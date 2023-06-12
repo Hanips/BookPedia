@@ -24,7 +24,7 @@
                 </div>
                 @if(Auth::user()->role == 'Administrator')
                     <div class="sb-sidenav-menu-heading">Akun</div>
-                    <a class="nav-link" href="">
+                    <a class="nav-link {{ request()->is('user') ? 'active' : '' }}" href="{{ url('/user') }}">
                         <div class="sb-nav-link-icon"><i class='fas fa-user-edit'></i></div>
                         Kelola User
                     </a>

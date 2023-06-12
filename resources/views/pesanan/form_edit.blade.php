@@ -27,9 +27,9 @@
                             <option value="">-- Pilih Pelanggan --</option>
                             @foreach ($ar_pelanggan as $pelanggan)
                             @php
-                                $sel = ($pelanggan->id == $row->pelanggan_id) ? 'selected' : '';
+                                $sel = ($pelanggan->id == $row->user_id) ? 'selected' : '';
                             @endphp
-                            <option value="{{ $pelanggan->id }}" {{ $sel }}>{{ $pelanggan->nama }}</option>
+                            <option value="{{ $pelanggan->id }}" {{ $sel }}>{{ $pelanggan->name }}</option>
                             @endforeach
                         </select>
                         <label for="pelanggan">Nama Pelanggan</label>

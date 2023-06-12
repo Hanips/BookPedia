@@ -18,22 +18,22 @@
                 <div class="row">
                   <div class="col-md-6">
                     @empty($rs->foto)
-                      <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">
+                      <img src="{{ url('landingpage/img/noimg.png') }}" class="img-fluid" alt="Foto User">
                     @else
                       @php
-                        $fotoPath = 'landingpage/img/' . $rs->foto;
+                        $fotoPath = 'landingpage/img/'.$rs->foto;
                         $fotoUrl = url($fotoPath);
                       @endphp
                       @if (file_exists(public_path($fotoPath)))
                         <img src="{{ $fotoUrl }}" class="img-fluid" alt="Foto e-book">
                       @else
-                        <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">
+                        <img src="{{ url('landingpage/img/noimg.png') }}" class="img-fluid" alt="Foto User">
                       @endif
                     @endempty
                   </div>
                   <div class="col-md-6 d-flex align-items-center">
                     <div>
-                      <h2>{{ $rs->nama }}</h2>
+                      <h2>{{ $rs->name }}</h2>
                       <p>Email: {{ $rs->email }}</p>
                       <p>No. HP: {{ $rs->hp }}</p>
                       

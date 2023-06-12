@@ -17,9 +17,9 @@
                 <form method="POST" action="{{ route('pelanggan.store') }}" id="contactForm" enctype="multipart/form-data">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="nama" value="" id="nama" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" />
-                        <label for="nama">Pelanggan</label>
-                        <div class="invalid-feedback" data-sb-feedback="nama:required">Nama pelanggan is required.</div>
+                        <input class="form-control" name="name" value="" id="name" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" />
+                        <label for="name">Pelanggan</label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">Nama pelanggan is required.</div>
                     </div>
                     <div class="form-floating mb-3">
                         <input class="form-control" name="email" value="" id="email" type="email" placeholder="Email" data-sb-validations="required" />

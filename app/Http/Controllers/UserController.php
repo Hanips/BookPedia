@@ -2,27 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pelanggan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //query builder
 use App\Exports\PelangganExport;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
-class PelangganController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ar_pelanggan = DB::table('users')
+        $ar_user = DB::table('users')
                 ->select('users.*')
-                ->where('role', '=', 'Pelanggan')
-                ->orderBy('users.id', 'desc')
+                ->orderBy('users.role', 'desc')
                 ->get();
-        return view('pelanggan.index', compact('ar_pelanggan'));
+        return view('user.index', compact('ar_user'));
+    }
+
+    public function dataUser()
+    {
+        $user = auth()->user();
+
+        return view('landingpage.profile', compact('user'));
     }
 
     /**
@@ -30,8 +36,17 @@ class PelangganController extends Controller
      */
     public function create()
     {
-        //arahkan ke form input data
-        return view('pelanggan.form');
+        $enumValues = DB::table('information_schema.columns')
+                        ->select('column_type')
+                        ->where('table_name', '=', 'users')
+                        ->where('column_name', '=', 'role')
+                        ->first()
+                        ->column_type;
+
+        preg_match("/^enum\(\'(.*)\'\)$/", $enumValues, $matches);
+        $enumOptions = explode("','", $matches[1]);
+
+        return view('user.form', ['enumOptions' => $enumOptions]);
     }
 
     /**
@@ -44,6 +59,7 @@ class PelangganController extends Controller
             'name' => 'required|max:45',
             'email' => 'required|max:45',
             'password' => 'required|max:45',
+            'role' => 'required',
             'hp' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //KB
         ],
@@ -55,6 +71,7 @@ class PelangganController extends Controller
             'email.max'=>'Email Maksimal 45 karakter',
             'password.required'=>'Password Wajib Diisi',
             'password.max'=>'Password Maksimal 45 karakter',
+            'role.required'=>'Role Wajib Diisi',
             'hp.required'=>'Nomor HP Wajib Diisi',
             'hp.regex'=>'Nomor HP harus berupa angka',
             'foto.min'=>'Ukuran file kurang 2 KB',
@@ -78,13 +95,14 @@ class PelangganController extends Controller
             [
                 'name'=>$request->name,
                 'email'=>$request->email,
-                'password'=>$request->password,
+                'password' => bcrypt($request['password']),
+                'role'=>$request->role,
                 'hp'=>$request->hp,
                 'foto'=>$fileName,
             ]);
        
-        return redirect()->route('pelanggan.index')
-                        ->with('success','Data Pelanggan Baru Berhasil Disimpan');
+        return redirect()->route('user.index')
+                        ->with('success','Data User Baru Berhasil Disimpan');
     }
 
     /**
@@ -93,7 +111,7 @@ class PelangganController extends Controller
     public function show(string $id)
     {
         $rs = User::find($id);
-        return view('pelanggan.detail', compact('rs'));
+        return view('user.detail', compact('rs'));
     }
 
     /**
@@ -101,9 +119,27 @@ class PelangganController extends Controller
      */
     public function edit(string $id)
     {
-        //tampilkan data lama di form
+        $enumValues = DB::table('information_schema.columns')
+                        ->select('column_type')
+                        ->where('table_name', '=', 'users')
+                        ->where('column_name', '=', 'role')
+                        ->first()
+                        ->column_type;
+
+        preg_match("/^enum\(\'(.*)\'\)$/", $enumValues, $matches);
+        $enumOptions = explode("','", $matches[1]);
+
+        // Tampilkan data lama di form
         $row = User::find($id);
-        return view('pelanggan.form_edit',compact('row'));
+
+        return view('user.form_edit', compact('row', 'enumOptions'));
+    }
+
+    public function ubahProfil(string $id)
+    {
+        // Tampilkan data lama di form
+        $row = User::find($id);
+        return view('landingpage.profile_edit', compact('row'));
     }
 
     /**
@@ -115,8 +151,9 @@ class PelangganController extends Controller
         $request->validate([
             'name' => 'required|max:45',
             'email' => 'required|max:45',
-            'password' => 'required|max:45',
-            'hp' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
+            'password' => 'required',
+            'role' => 'required',
+            'hp' => 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //KB
         ],
         //custom pesan errornya
@@ -126,8 +163,7 @@ class PelangganController extends Controller
             'email.required'=>'Email Wajib Diisi',
             'email.max'=>'Email Maksimal 45 karakter',
             'password.required'=>'Password Wajib Diisi',
-            'password.max'=>'Password Maksimal 45 karakter',
-            'hp.required'=>'Nomor HP Wajib Diisi',
+            'role.required'=>'Role Wajib Diisi',
             'hp.regex'=>'Nomor HP harus berupa angka',
             'foto.min'=>'Ukuran file kurang 2 KB',
             'foto.max'=>'Ukuran file melebihi 500 KB',
@@ -159,13 +195,20 @@ class PelangganController extends Controller
             [
                 'name'=>$request->name,
                 'email'=>$request->email,
-                'password'=>$request->password,
+                'password' => bcrypt($request['password']),
+                'role'=>$request->role,
                 'hp'=>$request->hp,
                 'foto'=>$fileName,
             ]);
        
-        return redirect('/pelanggan'.'/'.$id)
-            ->with('success','Data Pelanggan Berhasil Diubah');
+        $previousUrl = url()->previous();
+        if (strpos($previousUrl, '/user'.'/'.$id.'/edit') !== false) {
+            // Jika pada halaman admin
+            return redirect('/user'.'/'.$id)->with('success','Data User Berhasil Diubah');
+        } else {
+            // Jika pada halaman landingpage
+            return redirect('/profile')->with('success', 'Profil Berhasil Diubah');
+        }
     }
 
     /**
@@ -173,16 +216,16 @@ class PelangganController extends Controller
      */
     public function destroy(string $id)
     {
-        $pelanggan = User::find($id);
-        if (!empty($pelanggan->foto)) {
-            $fotoPath = public_path('landingpage/img/'.$pelanggan->foto);
+        $user = User::find($id);
+        if (!empty($user->foto)) {
+            $fotoPath = public_path('landingpage/img/'.$user->foto);
             if (file_exists($fotoPath)) {
                 unlink($fotoPath);
             }
         }
 
-        $pelanggan->delete();
-        return redirect()->route('pelanggan.index')
-                        ->with('success', 'Data Pelanggan Berhasil Dihapus');
+        $user->delete();
+        return redirect()->route('user.index')
+                        ->with('success', 'Data User Berhasil Dihapus');
     }
 }
