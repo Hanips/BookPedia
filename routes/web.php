@@ -18,6 +18,9 @@ Route::get('/promo', function () {
     return view('landingpage.promo');
 });
 
+Route::get('/ebook', [BukuController::class, 'filterBuku'])->name('landingpage.ebook');
+
+
 Route::get('/promo', [BukuController::class, 'bukuDiskon']);
 Route::get('/', [BukuController::class, 'dataBuku']);
 Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');

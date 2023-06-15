@@ -183,7 +183,7 @@ class UserController extends Controller
             if(!empty($namaFileFotoLama)) unlink('landingpage/img/'.$namaFileFotoLama);
 
             //lalukan proses ubah foto lama menjadi foto baru
-            $fileName = 'user_'.$request->kode.'.'.$request->foto->extension();
+            $fileName = 'user_'.$request->name.'.'.$request->foto->extension();
             $request->foto->move(public_path('landingpage/img'),$fileName);
         }
         else{

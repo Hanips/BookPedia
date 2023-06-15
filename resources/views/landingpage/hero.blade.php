@@ -10,8 +10,8 @@
                             <div class="row justify-content-start">
                                 <div class="col-lg-7">
                                     <h1 class="display-2 mb-5 animated slideInDown">Hanya dengan ponsel</h1>
-                                    <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">E-book</a>
-                                    <a href="" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Layanan</a>
+                                    <a href="{{ url('/ebook') }}" class="btn btn-primary rounded-pill py-sm-3 px-sm-5">E-book</a>
+                                    <a href="{{ url('/contact') }}" class="btn btn-secondary rounded-pill py-sm-3 px-sm-5 ms-3">Layanan</a>
                                 </div>
                             </div>
                         </div>

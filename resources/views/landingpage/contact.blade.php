@@ -6,8 +6,7 @@
         <h1 class="display-3 mb-3 animated slideInDown">Tim Kami</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a class="text-body" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-body" href="#">Pages</a></li>
+                <li class="breadcrumb-item"><a class="text-body" href="{{ url('/') }}">Home</a></li>
                 <li class="breadcrumb-item text-dark active" aria-current="page">Tim Kami</li>
             </ol>
         </nav>
@@ -23,7 +22,7 @@
             <p>"Menjelajahi Dunia Literasi Bersama Tim Bookpedia."</p>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <div class="testimonial-item position-relative bg-white p-5 mt-4">
+            <div class="testimonial-item position-relative bg-white p-5 mt-4" style="border-radius: 10px;">
                 <div class="d-flex align-items-center">
                     <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/1.jpg') }}" alt="" style="width: 330px; height: 270px;">
                     <br/>
@@ -33,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="testimonial-item position-relative bg-white p-5 mt-4"> 
+            <div class="testimonial-item position-relative bg-white p-5 mt-4" style="border-radius: 10px;"> 
                 <div class="d-flex align-items-center">
                     <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/4.jpg') }}" alt="" style="width: 330px; height: 270px;">
                     <br/>
@@ -43,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="testimonial-item position-relative bg-white p-5 mt-4">
+            <div class="testimonial-item position-relative bg-white p-5 mt-4" style="border-radius: 10px;">
                 <div class="d-flex align-items-center">
                     <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/5.jpg') }}" alt="" style="width: 330px; height: 270px;">
                     <br/>
@@ -53,29 +52,28 @@
                     </div> 
                 </div>
             </div>
-            <div class="testimonial-item position-relative bg-white p-5 mt-4">
+            <div class="testimonial-item position-relative bg-white p-5 mt-4" style="border-radius: 10px;">
                 <div class="d-flex align-items-center">
-                  <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/3.jpg') }}" alt="" style="width: 330px; height: 270px;">
-                  <br/>
-                  <div class="ms-3">
-                    <h5 class="mb-1">Firman Dwi Prabudi</h5>
-                    <span>Back End</span>
+                    <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/3.jpg') }}" alt="" style="width: 330px; height: 270px;">
+                    <br/>
+                    <div class="ms-3">
+                        <h5 class="mb-1">Firman Dwi Prabudi</h5>
+                        <span>Back End</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="testimonial-item position-relative bg-white p-5 mt-4">
-            <div class="d-flex align-items-center">
-                <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/2.jpg') }}" alt="" style="width: 330px; height: 270px;">
-                <br/>
-                <div class="ms-3">
-                    <h5 class="mb-1">Aminullah</h5>
-                    <span>Laporan</span>
-
+            <div class="testimonial-item position-relative bg-white p-5 mt-4" style="border-radius: 10px;">
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid rounded-circle" src="{{ asset('landingpage/img/2.jpg') }}" alt="" style="width: 330px; height: 270px;">
+                    <br/>
+                    <div class="ms-3">
+                        <h5 class="mb-1">Aminullah</h5>
+                        <span>Laporan</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Testimonial End -->
@@ -154,5 +152,3 @@
 <!-- Google Map End -->
 
 @endsection
-
-

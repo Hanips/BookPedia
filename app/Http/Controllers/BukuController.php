@@ -39,6 +39,72 @@ class BukuController extends Controller
         return view('landingpage.promo', compact('ar_buku'));
     }
 
+    public function filterBuku(Request $request)
+    {
+        $kategoriIds = [1, 2, 3, 4, 5, 6, 7, 8];
+        $penerbitIds = [1, 2, 3, 4, 5];
+        $ar_buku = [];
+    
+        foreach ($kategoriIds as $kategoriId) {
+            $ar_buku[$kategoriId] = Buku::where('kategori_id', $kategoriId)->get();
+        }
+    
+        foreach ($penerbitIds as $penerbitId) {
+            $ar_buku[$penerbitId] = Buku::where('penerbit_id', $penerbitId)->get();
+        }
+    
+        $selectedKategori = $request->kategori;
+        $selectedPenerbit = $request->penerbit;
+        $urutan = $request->urutan;
+        $hargaMin = $request->harga_min;
+        $hargaMax = $request->harga_max;
+        $promo = $request->has('promo');
+    
+        $buku_terpilih = Buku::query();
+    
+        // Filter kategori
+        if ($selectedKategori) {
+            $buku_terpilih->where('kategori_id', $selectedKategori);
+        }
+    
+        // Filter penerbit
+        if ($selectedPenerbit) {
+            $buku_terpilih->where('penerbit_id', $selectedPenerbit);
+        }
+    
+        // Filter range harga
+        if ($hargaMin) {
+            $buku_terpilih->where('harga', '>=', $hargaMin);
+        }
+    
+        if ($hargaMax) {
+            $buku_terpilih->where('harga', '<=', $hargaMax);
+        }
+    
+        // Filter promo
+        if ($promo) {
+            $buku_terpilih->where('diskon', '>', 0);
+        }
+    
+        // Urut berdasarkan
+        if ($urutan == 'terbaru') {
+            $buku_terpilih->orderBy('id', 'desc');
+        } elseif ($urutan == 'terlama') {
+            $buku_terpilih->orderBy('id', 'asc');
+        } elseif ($urutan == 'harga-tertinggi') {
+            $buku_terpilih->orderBy('harga', 'desc');
+        } elseif ($urutan == 'harga-terendah') {
+            $buku_terpilih->orderBy('harga', 'asc');
+        }
+    
+        $buku_terpilih = $buku_terpilih->get();
+        $semua_buku = Buku::all();
+        $semua_kategori = Kategori::all();
+        $semua_penerbit = Penerbit::all();
+    
+        return view('landingpage.ebook', compact('ar_buku', 'buku_terpilih', 'selectedKategori', 'selectedPenerbit', 'semua_buku', 'semua_kategori', 'semua_penerbit', 'urutan', 'hargaMin', 'hargaMax', 'promo'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -148,9 +214,10 @@ class BukuController extends Controller
      */
     public function detailBuku(string $id)
     {
-        $rs = Buku::find($id); //eloquent
+        $rs = Buku::withCount('pesanan')->find($id);
         return view('landingpage.buku_detail', compact('rs'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.

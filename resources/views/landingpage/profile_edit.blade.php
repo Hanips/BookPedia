@@ -23,32 +23,32 @@
                     @csrf
                     @method('PUT')
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="name" value="{{ $row->name }}" id="name" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" />
+                        <input class="form-control" name="name" value="{{ $row->name }}" id="name" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" style="border-radius: 10px;" />
                         <label for="name">Nama User</label>
                         <div class="invalid-feedback" data-sb-feedback="name:required">Nama user is required.</div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="email" value="{{ $row->email }}" id="email" type="email" placeholder="Email" data-sb-validations="required" />
+                        <input class="form-control" name="email" value="{{ $row->email }}" id="email" type="email" placeholder="Email" data-sb-validations="required" style="border-radius: 10px;" />
                         <label for="email">Email</label>
                         <div class="invalid-feedback" data-sb-feedback="email:required">Email is required.</div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password"/>
+                        <input class="form-control" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password" style="border-radius: 10px;" />
                         <label for="password">Password</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="hp" value="{{ $row->hp }}" id="hp" type="number" placeholder="No HP" data-sb-validations="required" />
+                        <input class="form-control" name="hp" value="{{ $row->hp }}" id="hp" type="number" placeholder="No HP" data-sb-validations="required" style="border-radius: 10px;" />
                         <label for="hp">No. HP</label>
                         <div class="invalid-feedback" data-sb-feedback="hp:required">No. HP is required.</div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="foto" value="{{ $row->foto }}" id="foto" type="file" placeholder="Foto" />
+                        <input class="form-control" name="foto" value="{{ $row->foto }}" id="foto" type="file" placeholder="Foto" style="border-radius: 10px;" />
                         <label for="foto">Foto</label>
                     </div>
-                    <button class="btn btn-primary" name="proses" value="ubah" id="ubah" type="submit">Ubah</button>
+                    <button class="btn btn-primary rounded-pill-custom" name="proses" value="ubah" id="ubah" type="submit">Ubah</button>
                     <input type="hidden" name="id" value="{{ $row->id }}"/>
                     <input type="hidden" name="role" value="{{ $row->role }}"/>
-                    <a href="{{ url('/profile') }}" class="btn btn-danger">Batal</a>
+                    <a href="{{ url('/profile') }}" class="btn btn-danger rounded-pill-custom">Batal</a>
                 </form>
             </div>
         </div>

@@ -18,10 +18,10 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Quick Links</h4>
-                <a class="btn btn-link" href="">Home</a>
-                <a class="btn btn-link" href="">Ebook</a>
-                <a class="btn btn-link" href="">Promo</a>
-                <a class="btn btn-link" href="">Tim Kami</a>
+                <a class="btn btn-link" href="{{ url('/') }}">Home</a>
+                <a class="btn btn-link" href="{{ url('/ebook') }}">Ebook</a>
+                <a class="btn btn-link" href="{{ url('/promo') }}">Promo</a>
+                <a class="btn btn-link" href="{{ url('/contact') }}">Tim Kami</a>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h4 class="text-light mb-4">Newsletter</h4>

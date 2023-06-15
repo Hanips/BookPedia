@@ -1,6 +1,6 @@
 @extends('landingpage.index')
 @section('content')
-<br><br><br><br><br><br>
+<br><br><br><br><br>
 <div class="container-xxl py-5">
     <div class="container">
         <div class="container">
@@ -18,7 +18,7 @@
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                <div class="carousel-inner">
+                <div class="carousel-inner" style="border-radius: 10px;">
                     <div class="carousel-item active">
                         <img src="{{ url('landingpage/img/iklan-1.jpg') }}" class="d-block w-100" alt="...">
                     </div>
@@ -58,35 +58,35 @@
                         <div class="row g-4">
                             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="product-item">
-                                    <div class="position-relative bg-light overflow-hidden">
+                                    <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                         <a href=""><img class="img-fluid w-100" src="{{ url('landingpage/img/langganan-1.jpg') }}" alt=""></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="product-item">
-                                    <div class="position-relative bg-light overflow-hidden">
+                                    <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                         <a href=""><img class="img-fluid w-100" src="{{ url('landingpage/img/langganan-2.jpg') }}" alt=""></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="product-item">
-                                    <div class="position-relative bg-light overflow-hidden">
+                                    <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                         <a href=""><img class="img-fluid w-100" src="{{ url('landingpage/img/langganan-3.jpg') }}" alt=""></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="product-item">
-                                    <div class="position-relative bg-light overflow-hidden">
+                                    <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                         <a href=""><img class="img-fluid w-100" src="{{ url('landingpage/img/langganan-4.jpg') }}" alt=""></a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="product-item">
-                                    <div class="position-relative bg-light overflow-hidden">
+                                    <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                         <a href=""><img class="img-fluid w-100" src="{{ url('landingpage/img/langganan-5.jpg') }}" alt=""></a>
                                     </div>
                                 </div>
@@ -113,8 +113,8 @@
                 @foreach ($ar_buku as $buku)
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a href="{{ route('landingpage.buku_detail', $buku->id) }}">
-                            <div class="product-item">
-                                <div class="position-relative bg-light overflow-hidden">
+                            <div class="product-item shadow" style="border-radius: 5px;">
+                                <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                     @empty($buku->foto)
                                         <div class="image-container">
                                             <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book">

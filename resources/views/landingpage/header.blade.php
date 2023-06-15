@@ -21,17 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                <a href="" class="nav-item nav-link">Ebook</a>
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kategori</a>
-                    <div class="dropdown-menu m-0 dropdown-menu-dark">
-                        <a href="" class="dropdown-item">Novel</a>
-                        <a href="" class="dropdown-item">Komik</a>
-                        <a href="" class="dropdown-item">Majalah</a>
-                        <a href="" class="dropdown-item">Kamus</a>
-                        <a href="" class="dropdown-item">Biografi</a>
-                    </div>
-                </div>
+                <a href="{{ url('/ebook') }}" class="nav-item nav-link">Ebook</a>
                 <a href="{{ url('/promo') }}" class="nav-item nav-link {{ request()->is('promo') ? 'active' : '' }}">Promo</a>
                 <a href="{{ url('/contact') }}" class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Tim Kami</a>
             </div>
@@ -41,21 +31,31 @@
                         <i class="fas fa-search text-body"></i>
                     </a>
                     @guest
-                    <div class="nav-item dropdown">
-                        <!-- Tampilkan tombol Login dan Register jika pengguna belum login -->
-                        <a href="#" class="btn-sm-square bg-white btn-outline-dark rounded-circle ms-3" data-bs-toggle="dropdown"><small class="fa fa-user text-body"></small></a>
-                        <div class="dropdown-menu m-0 dropdown-menu-dark">
-                            <a href="{{ route('login') }}" class="dropdown-item">Login</a>
-                            <a href="{{ route('register') }}" class="dropdown-item">Register</a>
-                        </div>
-                    </div> 
+                    <!-- Tampilkan tombol Login jika pengguna belum login -->
+                    <a href="{{ route('login') }}" class="btn btn-md bg-white btn-outline-dark rounded-pill me-3 wow fadeIn" data-wow-delay="0.1s">
+                        <i class="fa fa-user text-body"></i>
+                        | Login
+                    </a>
                     @else
+                    <!-- Tampilkan nama pengguna, profil, keranjang, dan logout jika pengguna telah login -->
                     <div class="nav-item dropdown">
-                        <!-- Tampilkan nama pengguna, keranjang, dan logout jika pengguna telah login -->
                         <a href="#" class="btn btn-md bg-white btn-outline-dark rounded-pill me-3 wow fadeIn" data-wow-delay="0.1s" data-bs-toggle="dropdown">
-                            <small class="fa fa-user text-body"></small> | {{ Auth::user()->name }}
+                            @empty(Auth::user()->foto)
+                                <img src="{{ asset('landingpage/img/noimg.png') }}" alt="avatar" class="rounded-circle img-fluid" style="width: 30px; height: 30px;">
+                            @else
+                                @php
+                                $fotoPath = 'landingpage/img/' . Auth::user()->foto;
+                                $fotoUrl = url($fotoPath);
+                                @endphp
+                                @if (file_exists(public_path($fotoPath)))
+                                <img src="{{ $fotoUrl }}" class="rounded-circle img-fluid" style="width: 30px; height: 30px;">
+                                @else
+                                <img src="{{ asset('landingpage/img/noimg.png') }}" class="rounded-circle img-fluid" style="width: 30px; height: 30px;">
+                                @endif
+                            @endempty
+                            | {{ Auth::user()->name }}
                         </a>
-                        <div class="dropdown-menu m-0 dropdown-menu-dark">
+                        <div class="dropdown-menu dropdown-custom m-0" style="border-radius: 10px;">
                             <a href="{{ url('/profile') }}" class="dropdown-item {{ request()->is('profile') ? 'active' : '' }}">Profil</a>
                             <a href="" class="dropdown-item {{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a>
                             <hr class="dropdown-divider">
