@@ -14,6 +14,10 @@ Route::get('/produk', function () {
     return view('landingpage.produk');
 });
 
+Route::get('/cart', function () {
+    return view('landingpage.cart');
+});
+
 Route::get('/promo', function () {
     return view('landingpage.promo');
 });
