@@ -82,7 +82,10 @@
               @endif
             </p>
             <br><br><br>
-            <a href="" class="btn btn-success rounded-pill-custom">Pesan</a>
+            <a href="#" class="btn btn-outline-success rounded-pill-custom" >
+            <i class="fa fa-cart-plus"></i>
+              Masukkan Keranjang
+            </a>
             <a href="{{ url('/') }}" class="btn btn-primary rounded-pill-custom">Kembali</a>
             </div>
             </div>
