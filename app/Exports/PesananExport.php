@@ -17,13 +17,13 @@ class PesananExport implements FromCollection, WithHeadings
     {
         $ar_pesanan = Pesanan::join('buku', 'buku.id', '=', 'pesanan.buku_id')
             ->join('users', 'users.id', '=', 'pesanan.user_id')
-            ->select('pesanan.kode', 'users.name','buku.judul', 'pesanan.tgl', 'pesanan.ket'  )
+            ->select('pesanan.id', 'users.name', 'buku.judul', 'buku.harga', 'pesanan.tgl', 'pesanan.ket'  )
             ->get();
         return $ar_pesanan;
     }
 
     public function headings(): array
     {
-        return ["Kode", "Pelanggan", "Buku", "Tanggal", "Keterangan"];
+        return ["Id", "Pelanggan", "Buku", "Harga", "Tanggal", "Keterangan"];
     }
 }

@@ -1,10 +1,5 @@
 @extends('landingpage.index')
 @section('content')
-@if($message = Session::get('success'))
-<div class="alert alert-success">
-	<p>{{ $message }}</p>
-</div>
-@endif
 <br><br><br><br><br><br>
 <main>
   <div class="container-fluid px-4 mx-auto">
@@ -82,12 +77,15 @@
               @endif
             </p>
             <br><br><br>
-            <a href="#" class="btn btn-outline-success rounded-pill-custom" >
-            <i class="fa fa-cart-plus"></i>
-              Masukkan Keranjang
-            </a>
-            <a href="{{ url('/') }}" class="btn btn-primary rounded-pill-custom">Kembali</a>
-            </div>
+            <div class="d-flex justify-content-start">
+              <form id="tambah-keranjang-form" action="{{ route('tambah.ke.keranjang', $rs->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-success rounded-pill-custom" id="tambah-keranjang-btn">
+                  <i class="fa fa-cart-plus"></i>
+                  Masukkan Ke Keranjang
+                </button>
+              </form>
+              <a href="javascript:history.back()" class="btn btn-primary rounded-pill-custom" style="margin-left: 10px;">Kembali</a>
             </div>
           </div>
         </div>
@@ -95,4 +93,49 @@
     </div>
   </div>
 </main>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  document.getElementById('tambah-keranjang-btn').addEventListener('click', function(e) {
+    e.preventDefault(); // Menghentikan aksi default saat tombol diklik
+
+    // Pastikan pengguna sudah login sebelum menambahkan ke keranjang
+    if ({{ Auth::check() ? 'true' : 'false' }}) {
+      swal({
+        title: "Berhasil!",
+        text: "Buku telah ditambahkan ke keranjang.",
+        icon: "success",
+        buttons: {
+          confirm: {
+            text: "OK",
+            value: true,
+            visible: true,
+            className: "",
+            closeModal: true
+          }
+        }
+      }).then(function() {
+        // Submit form setelah swal ditutup
+        document.getElementById('tambah-keranjang-form').submit();
+      });
+    } else {
+      swal({
+        title: "Gagal!",
+        text: "Anda harus login untuk menambahkan buku ke keranjang.",
+        icon: "error",
+        buttons: {
+          confirm: {
+            text: "OK",
+            value: true,
+            visible: true,
+            className: "",
+            closeModal: true
+          }
+        }
+      }).then(function() {
+        // Redirect ke halaman login setelah swal ditutup
+        window.location.href = "{{ route('login') }}";
+      });
+    }
+  });
+</script>
 @endsection

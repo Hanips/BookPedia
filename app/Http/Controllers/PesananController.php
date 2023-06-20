@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //jika pakai query builder
 use App\Exports\PesananExport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PesananController extends Controller
@@ -26,6 +27,25 @@ class PesananController extends Controller
                 ->get();
         return view('pesanan.index', compact('ar_pesanan'));
     }
+
+    public function tambahKeKeranjang($id)
+    {
+        $buku = Buku::findOrFail($id);
+    
+        // Pastikan user sudah login
+        if (Auth::check()) {
+            $userId = Auth::user()->id;
+            Pesanan::create([
+                'user_id' => $userId,
+                'buku_id' => $buku->id,
+            ]);
+    
+            return redirect()->back()->with('success', 'Buku berhasil ditambahkan ke keranjang.');
+        } else {
+            return redirect()->route('login')->with('error', 'Anda harus login untuk menambahkan buku ke keranjang.');
+        }
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -47,31 +67,23 @@ class PesananController extends Controller
     {
         //proses input produk dari form
         $request->validate([
-            'kode' => 'required|unique:pesanan|max:5',
             'pelanggan' => 'required|integer',
             'buku' => 'required|integer',
-            'ket' => 'max:50',
         ],
         //custom pesan errornya
         [
-            'kode.required'=>'Kode Wajib Diisi',
-            'kode.unique'=>'Kode Sudah Ada (Terduplikasi)',
-            'kode.max'=>'Kode Maksimal 5 karakter',
             'buku.required'=>'Buku Wajib Diisi',
             'buku.integer'=>'Buku Harus Berupa Angka',
             'pelanggan.required'=>'Pelanggan Wajib Diisi',
             'pelanggan.integer'=>'Pelanggan Harus Berupa Angka',
-            'ket.max'=>'Keterangan Maksimal 50 Karakter',
         ]
         );
 
         //lakukan insert data dari request form
         DB::table('pesanan')->insert(
             [
-                'kode'=>$request->kode,
                 'user_id'=>$request->pelanggan,
                 'buku_id'=>$request->buku,
-                'ket'=>$request->ket,
             ]);
        
         return redirect()->route('pesanan.index')
@@ -108,15 +120,12 @@ class PesananController extends Controller
     {
         //proses input produk dari form
         $request->validate([
-            'kode' => 'required|max:5',
             'pelanggan' => 'required|integer',
             'buku' => 'required|integer',
             'ket' => 'max:50',
         ],
         //custom pesan errornya
         [
-            'kode.required'=>'Kode Wajib Diisi',
-            'kode.max'=>'Kode Maksimal 5 karakter',
             'buku.required'=>'Buku Wajib Diisi',
             'buku.integer'=>'Buku Harus Berupa Angka',
             'pelanggan.required'=>'Pelanggan Wajib Diisi',
@@ -128,7 +137,6 @@ class PesananController extends Controller
         //lakukan insert data dari request form
         DB::table('pesanan')->where('id',$id)->update(
             [
-                'kode'=>$request->kode,
                 'user_id'=>$request->pelanggan,
                 'buku_id'=>$request->buku,
                 'ket'=>$request->ket,
@@ -145,8 +153,17 @@ class PesananController extends Controller
     {
         $pesanan = Pesanan::find($id);
         $pesanan->delete();
-        return redirect()->route('pesanan.index')
+
+        $previousUrl = url()->previous();
+        if (strpos($previousUrl, '/keranjang') !== false) {
+            // Jika pada halaman admin
+            return redirect()->route('keranjang')
+                        ->with('success','Buku Berhasil Dihapus Dari Keranjang');
+        } else {
+            // Jika pada halaman landingpage
+            return redirect()->route('pesanan.index')
                         ->with('success','Data Pesanan Berhasil Dihapus');
+        }
     }
     public function pesananExcel()
     {

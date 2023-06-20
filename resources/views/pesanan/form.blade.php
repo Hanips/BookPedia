@@ -17,11 +17,6 @@
                 <form method="POST" action="{{ route('pesanan.store') }}" id="contactForm">
                     @csrf
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="kode" value="" id="kode" type="text" placeholder="Kode Pesanan" data-sb-validations="required" />
-                        <label for="kode">Kode Pesanan</label>
-                        <div class="invalid-feedback" data-sb-feedback="kode:required">Kode Pesanan is required.</div>
-                    </div>
-                    <div class="form-floating mb-3">
                         <select class="form-select" name="pelanggan" aria-label="Pelanggan">
                             <option value="">-- Pilih Pelanggan --</option>
                             @foreach ($ar_pelanggan as $pelanggan)
@@ -38,11 +33,6 @@
                             @endforeach
                         </select>
                         <label for="buku">E-Book</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input class="form-control" name="ket" value="" id="ket" type="text" placeholder="Keterangan" data-sb-validations="required" />
-                        <label for="ket">Keterangan</label>
-                        <div class="invalid-feedback" data-sb-feedback="ket:required">Keterangan is required.</div>
                     </div>
                     <button class="btn btn-primary" name="proses" value="simpan" id="simpan" type="submit">Simpan</button>
                     <a href="{{ url('/pesanan') }}" class="btn btn-danger">Batal</a>

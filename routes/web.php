@@ -8,28 +8,31 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 // ------- LANDING PAGE -------
 Route::get('/produk', function () {
     return view('landingpage.produk');
 });
 
-Route::get('/cart', function () {
-    return view('landingpage.cart');
-});
-
 Route::get('/promo', function () {
     return view('landingpage.promo');
 });
 
+Route::get('/contact', function () {
+    return view('landingpage.contact');
+});
+
 Route::get('/ebook', [BukuController::class, 'filterBuku'])->name('landingpage.ebook');
-
-
 Route::get('/promo', [BukuController::class, 'bukuDiskon']);
 Route::get('/', [BukuController::class, 'dataBuku']);
 Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');
-Route::get('/contact', function () {
-    return view('landingpage.contact');
+Route::get('/keranjang', [UserController::class, 'keranjang'])->name('keranjang')->middleware('auth');
+Route::post('/tambah-ke-keranjang/{id}', [PesananController::class, 'tambahKeKeranjang'])->name('tambah.ke.keranjang')->middleware('auth');
+Route::delete('/keranjang/{id}', [PesananController::class, 'destroy'])->name('keranjang.destroy')->middleware('auth');
+Route::post('/checkout', [UserController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::get('/snap', function () {
+    return view('snap');
 });
 Route::get('/profile', [UserController::class, 'dataUser'])->middleware('auth');
 Route::get('/ubah_profil/{id}', [UserController::class, 'ubahProfil'])->name('landingpage.profile_edit');

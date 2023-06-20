@@ -18,8 +18,7 @@
                 <div class="row">
                   <div class="col-md-6 d-flex align-items-center">
                     <div>
-                      <h2>{{ $rs->kode }}</h2>
-                      <p>Nama Pelanggan: {{ $rs->user->name }}</p>
+                      <h2>{{ $rs->user->name }}</h2>
                       <p>E-Book: {{ $rs->buku->judul }}</p>
                       <p>Tanggal: {{ $rs->tgl }}</p>
                       <p>Harga: {{ $rs->buku->harga }}</p>

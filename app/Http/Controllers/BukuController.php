@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Buku; //panggil model
 use App\Models\Kategori; //panggil model
 use App\Models\Penerbit; //panggil model
+use App\Models\Pesanan; //panggil model
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //jika pakai query builder
 use App\Exports\BukuExport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class BukuController extends Controller
@@ -59,6 +61,7 @@ class BukuController extends Controller
         $hargaMin = $request->harga_min;
         $hargaMax = $request->harga_max;
         $promo = $request->has('promo');
+        $search = $request->search; // Menambahkan variabel search
     
         $buku_terpilih = Buku::query();
     
@@ -86,6 +89,18 @@ class BukuController extends Controller
             $buku_terpilih->where('diskon', '>', 0);
         }
     
+        // Filter search
+        if ($search) {
+            $buku_terpilih->where(function ($query) use ($search) {
+                $query->where('judul', 'like', '%'.$search.'%')
+                      ->orWhere('pengarang', 'like', '%'.$search.'%')
+                      ->orWhere('harga', 'like', '%'.$search.'%')
+                      ->orWhere('isbn', 'like', '%'.$search.'%')
+                      ->orWhere('sinopsis', 'like', '%'.$search.'%')
+                      ->orWhere('jumlah_halaman', 'like', '%'.$search.'%');
+            });
+        }
+    
         // Urut berdasarkan
         if ($urutan == 'terbaru') {
             $buku_terpilih->orderBy('id', 'desc');
@@ -102,7 +117,7 @@ class BukuController extends Controller
         $semua_kategori = Kategori::all();
         $semua_penerbit = Penerbit::all();
     
-        return view('landingpage.ebook', compact('ar_buku', 'buku_terpilih', 'selectedKategori', 'selectedPenerbit', 'semua_buku', 'semua_kategori', 'semua_penerbit', 'urutan', 'hargaMin', 'hargaMax', 'promo'));
+        return view('landingpage.ebook', compact('ar_buku', 'buku_terpilih', 'selectedKategori', 'selectedPenerbit', 'semua_buku', 'semua_kategori', 'semua_penerbit', 'urutan', 'hargaMin', 'hargaMax', 'promo', 'search')); // Menambahkan variabel search ke dalam compact()
     }
 
     /**

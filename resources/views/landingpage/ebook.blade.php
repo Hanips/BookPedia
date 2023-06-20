@@ -59,24 +59,28 @@
             </div>
             
             <div class="col-lg-9 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="col-lg-12 text-end text-lg-end wow slideInRight" data-wow-delay="0.1s">
-                    <div class="nav nav-pills d-inline-flex align-items-center mb-3" data-wow-delay="0.1s">
-                        <span class="me-2"><b>Urut Berdasarkan:</b></span>
-                        <!-- Select Option for Sorting -->
-                        <form action="{{ route('landingpage.ebook') }}" method="GET">
-                            <div class="input-group">
-                                <select id="sorting" class="form-select shadow" onchange="this.form.submit()" name="urutan" style="border-radius: 10px;">
-                                    <option value="terbaru" {{ $urutan == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
-                                    <option value="terlama" {{ $urutan == 'terlama' ? 'selected' : '' }}>Terlama</option>
-                                    <option value="harga-tertinggi" {{ $urutan == 'harga-tertinggi' ? 'selected' : '' }}>Harga Tertinggi</option>
-                                    <option value="harga-terendah" {{ $urutan == 'harga-terendah' ? 'selected' : '' }}>Harga Terendah</option>
-                                </select>
-                            </div>
+                <div class="col-lg-12 text-start text-lg-start wow slideInRight" data-wow-delay="0.1s">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <form action="{{ route('landingpage.ebook') }}" method="GET" class="d-flex align-items-center me-2">
+                            <input type="text" class="form-control me-2" name="search" placeholder="Cari judul buku" value="{{ $search }}" style="border-radius: 10px;">
+                            <button type="submit" class="btn btn-primary rounded-pill-custom" style="border-radius: 10px;">Cari</button>
                         </form>
+                        <div class="nav nav-pills d-inline-flex align-items-center">
+                            <span class="me-2"><b>Urut Berdasarkan:</b></span>
+                            <!-- Select Option for Sorting -->
+                            <form action="{{ route('landingpage.ebook') }}" method="GET">
+                                <div class="input-group">
+                                    <select id="sorting" class="form-select shadow" onchange="this.form.submit()" name="urutan" style="border-radius: 10px;">
+                                        <option value="terbaru" {{ $urutan == 'terbaru' ? 'selected' : '' }}>Terbaru</option>
+                                        <option value="terlama" {{ $urutan == 'terlama' ? 'selected' : '' }}>Terlama</option>
+                                        <option value="harga-tertinggi" {{ $urutan == 'harga-tertinggi' ? 'selected' : '' }}>Harga Tertinggi</option>
+                                        <option value="harga-terendah" {{ $urutan == 'harga-terendah' ? 'selected' : '' }}>Harga Terendah</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                
-                
                 <div class="row g-4">
                     <!-- Book Listing -->
                     @foreach ($buku_terpilih as $buku)

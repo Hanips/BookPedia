@@ -57,7 +57,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-custom m-0" style="border-radius: 10px;">
                             <a href="{{ url('/profile') }}" class="dropdown-item {{ request()->is('profile') ? 'active' : '' }}">Profil</a>
-                            <a href="{{ url('/cart') }}" class="dropdown-item {{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a>
+                            <a href="{{ url('/keranjang') }}" class="dropdown-item {{ request()->is('keranjang') ? 'active' : '' }}">Keranjang</a>
                             <hr class="dropdown-divider">
                             @if (Auth::user()->role != 'Pelanggan')
                                 <a href="{{ url('/admin') }}" class="dropdown-item">Dashboard</a>

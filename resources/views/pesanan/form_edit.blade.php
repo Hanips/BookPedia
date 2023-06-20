@@ -18,11 +18,6 @@
                     @csrf
                     @method('PUT')
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="kode" value="{{ $row->kode }}" id="kode" type="text" placeholder="Kode Pesanan" data-sb-validations="required" />
-                        <label for="kode">Kode Pesanan</label>
-                        <div class="invalid-feedback" data-sb-feedback="kode:required">Kode Pesanan is required.</div>
-                    </div>
-                    <div class="form-floating mb-3">
                         <select class="form-select" name="pelanggan" aria-label="Pelanggan">
                             <option value="">-- Pilih Pelanggan --</option>
                             @foreach ($ar_pelanggan as $pelanggan)

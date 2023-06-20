@@ -1,0 +1,163 @@
+@extends('landingpage.index')
+@section('content')
+<br><br><br><br><br>
+<div class="container-lg py-5">
+    <div class="container">
+        <div class="container">
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a class="text-body" href="{{ url('/') }}">Home</a></li>
+                    <li class="breadcrumb-item text-dark active" aria-current="page">Keranjang</li>
+                </ol>
+            </nav>
+        </div>
+        <br><br>
+        <div class="custom-card">
+            <div class="cardBody">
+                <div class="table-responsive">
+                    <table id="keranjang" class="table-hover table condensed">
+                        <thead>
+                            <tr>
+                                <th style="width:5%" data-th="checkbox">
+                                    <input type="checkbox" id="checkAll" class="form-check-input">
+                                </th>
+                                <th style="width:10%" data-th="item">Item</th>
+                                <th style="width:30%" data-th="e-book">E-book</th>
+                                <th style="width:10%" data-th="harga">Harga</th>
+                                <th style="width:5%" data-th="diskon">Diskon</th>
+                                <th style="width:10%" data-th="total">Total</th>
+                                <th style="width:5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $total = 0; ?>
+                            @if(isset($keranjang) && $keranjang->count() > 0)
+                                @foreach($keranjang as $detail)
+                                    <?php
+                                        $subtotal = $detail->buku_harga - ($detail->buku_harga * $detail->buku_diskon / 100);
+                                        $formattedHarga = number_format($detail->buku_harga, 0, ',', '.');
+                                        $formattedSubtotal = number_format($subtotal, 0, ',', '.');
+                                    ?>
+                                    <tr data-id="{{ $detail->id }}">
+                                        <td data-th="checkbox">
+                                            <input type="checkbox" class="form-check-input checkbox-item">
+                                        </td>
+                                        <td data-th="item">
+                                            <div class="row">
+                                                <div class="col-sm-3 hidden-xs">
+                                                    <img src="{{ asset('landingpage/img') }}/{{ $detail->buku_foto }}" width="150" height="200">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-th="e-book">
+                                            <div class="row">
+                                                <div class="col-sm-3 hidden-xs">
+                                                    <p style="white-space: nowrap; word-wrap: break-word;">{{ $detail->buku_judul }}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-th="harga">Rp{{ $formattedHarga }}</td>
+                                        @if ($detail->buku_diskon > 0)
+                                            <td data-th="diskon">{{ intval($detail->buku_diskon) }}%</td>
+                                        @else
+                                            <td data-th="diskon">-</td>
+                                        @endif
+                                        <td data-th="total">Rp{{ $formattedSubtotal }}</td>
+                                        <td>
+                                            <form method="POST" action="{{ route('pesanan.destroy', $detail->id) }}" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')">
+                                                    <i class="fas fa-trash fa-lg fs-3"></i>
+                                                </button>
+                                                <input type="hidden" name="idx" value=""/>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="7" class="text-center">Keranjang Anda kosong.</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6" class="text-right">
+                                    <h3><strong>Total Rp<span id="total">0</span></strong></h3>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" class="text-right">
+                                    <a href="{{ url('/ebook') }}" class="btn btn-danger">
+                                        <i class="fa fa-arrow-left"></i>
+                                        Lanjutkan Belanja
+                                    </a>
+                                    <form action="{{ route('checkout') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="pesanan_ids[]" value="">
+                                        <input type="hidden" name="gross_amounts[]" value="">
+                                        <input type="hidden" name="nama" value="{{ Auth::user()->name }}">
+                                        <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                                        <input type="hidden" name="phone" value="{{ Auth::user()->hp }}">
+                                        <button type="submit" class="btn btn-success">Checkout</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Function to handle the checkAll checkbox
+    function checkAll() {
+        var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+        var checkAllCheckbox = document.getElementById('checkAll');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = checkAllCheckbox.checked;
+        }
+        
+        calculateTotal();
+    }
+
+    // Function to calculate the total
+    function calculateTotal() {
+        var checkboxes = document.querySelectorAll('tbody input.checkbox-item');
+        var totalElement = document.getElementById('total');
+        var total = 0;
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                var row = checkboxes[i].closest('tr');
+                var subtotal = row.querySelector('td[data-th="total"]').innerText;
+                subtotal = subtotal.replace('Rp', '').replace('.', '').replace(',', '').trim();
+                total += parseInt(subtotal);
+            }
+        }
+
+        totalElement.innerText = formatNumber(total);
+    }
+
+    // Function to format the number with commas as thousands separator
+    function formatNumber(number) {
+        return new Intl.NumberFormat('id-ID').format(number);
+    }
+
+    // Event listener for checkAll checkbox
+    document.getElementById('checkAll').addEventListener('change', checkAll);
+
+    // Event listener for checkbox items
+    var checkboxItems = document.querySelectorAll('tbody input.checkbox-item');
+    for (var i = 0; i < checkboxItems.length; i++) {
+        checkboxItems[i].addEventListener('change', calculateTotal);
+    }
+
+    // Calculate total when the page loads
+    calculateTotal();
+</script>
+@endsection

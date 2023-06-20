@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pelanggan; //panggil model
+use App\Models\Pesanan;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //query builder
 use App\Exports\PelangganExport;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Midtrans\Config;
+use Midtrans\Snap;
 
 class UserController extends Controller
 {
@@ -31,6 +35,111 @@ class UserController extends Controller
         return view('landingpage.profile', compact('user'));
     }
 
+    public function keranjang()
+    {
+        $user = Auth::user();
+    
+        $keranjang = DB::table('pesanan')
+                    ->join('buku', 'buku.id', '=', 'pesanan.buku_id')
+                    ->select('pesanan.*', 'buku.judul as buku_judul', 'buku.harga as buku_harga', 'buku.foto as buku_foto', 'buku.diskon as buku_diskon')
+                    ->where('pesanan.user_id', $user->id)
+                    ->where('pesanan.ket', 'Pending')
+                    ->get();
+    
+        $selectedItems = [];
+    
+        foreach ($keranjang as $detail) {
+            $subtotal = $detail->buku_harga - ($detail->buku_harga * $detail->buku_diskon / 100);
+            $formattedHarga = number_format($detail->buku_harga, 0, ',', '.');
+            $formattedSubtotal = number_format($subtotal, 0, ',', '.');
+    
+            if ($detail->buku_diskon > 0) {
+                $selectedItems[] = [
+                    'pesanan_id' => $detail->id,
+                    'harga' => $subtotal
+                ];
+            }
+    
+            $detail->buku_harga_formatted = $formattedHarga;
+            $detail->subtotal_formatted = $formattedSubtotal;
+        }
+    
+        return view('landingpage.keranjang', compact('keranjang', 'selectedItems'));
+    }
+    
+
+    /*public function checkout(Request $request)
+    {
+        // Mengambil data dari form
+        $pesananIds = $request->input('pesanan_ids');
+        $grossAmounts = $request->input('gross_amounts');
+
+        // Memeriksa data yang terambil
+        dd($pesananIds, $grossAmounts);
+
+        // Set konfigurasi Midtrans
+        Config::$serverKey = config('midtrans.server_key');
+        Config::$clientKey = config('midtrans.client_key');
+        Config::$isProduction = false;
+    
+        // Ambil data buku yang dicentang oleh pengguna
+        $selectedItems = $request->input('selectedItems');
+    
+        if (empty($selectedItems)) {
+            // Tambahkan logika jika tidak ada buku yang dicentang
+            return redirect()->back()->with('error', 'Tidak ada buku yang dipilih.');
+        }
+    
+        $items = [];
+        $totalAmount = 0;
+    
+        foreach ($selectedItems as $selectedItem) {
+            $pesananId = $selectedItem;
+            $pesanan = Pesanan::find($pesananId);
+            $buku = $pesanan->buku; // Sesuaikan dengan relasi antara Pesanan dan Buku
+    
+            $harga = $buku->harga;
+    
+            $items[] = [
+                'id' => $pesananId,
+                'price' => $harga,
+                'quantity' => 1,
+                'name' => $buku->judul,
+            ];
+    
+            $totalAmount += $harga;
+        }
+    
+        // Simpan selectedItems ke dalam session sebelum redirect
+        session(['selectedItems' => $selectedItems]);
+    
+        // Ambil data pesanan yang ingin dibayar
+        $pesanan = Pesanan::find($selectedItems[0]);
+    
+        // Buat transaksi pembayaran
+        $transaction = [
+            'transaction_details' => [
+                'order_id' => $pesanan->id,
+                'gross_amount' => $totalAmount,
+            ],
+            'customer_details' => [
+                'name' => $pesanan->nama,
+                'email' => $pesanan->email,
+                'phone' => $pesanan->phone,
+            ],
+            'item_details' => $items,
+        ];
+    
+        // Buat payment token menggunakan Snap API
+        $snapToken = Snap::getSnapToken($transaction);
+    
+        // Simpan snapToken ke dalam session sebelum redirect
+        session(['snapToken' => $snapToken]);
+    
+        // Redirect pengguna ke halaman pembayaran Midtrans
+        return redirect()->route('snap')->with('pesanan', $pesanan);
+    }*/
+    
     /**
      * Show the form for creating a new resource.
      */

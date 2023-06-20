@@ -10,8 +10,9 @@ class Pesanan extends Model
 {
     use HasFactory;
     protected $table = 'pesanan';
+    public $timestamps = false;
     protected $fillable = [
-        'kode','buku_id','user_id','ket'
+        'buku_id','user_id','ket'
     ];
 
     public function buku(): BelongsTo
