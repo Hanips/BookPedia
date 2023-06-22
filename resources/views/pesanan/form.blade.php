@@ -28,7 +28,7 @@
                             <option value="">-- Pilih E-Book --</option>
                             @foreach ($ar_buku as $buku)
                             @php $sel = ( old('buku')==$buku['id'] ) ? 'selected' : ''; @endphp
-                            <option value="{{ $buku->id }}">{{ $buku->judul }}</option>
+                            <option value="{{ $buku->id }}" {{ $sel}}>{{ $buku->judul }}</option>
                             @endforeach
                         </select>
                         <label for="buku">E-Book</label>
