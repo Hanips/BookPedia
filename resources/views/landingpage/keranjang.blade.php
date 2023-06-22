@@ -1,6 +1,6 @@
 @extends('landingpage.index')
 @section('content')
-<br><br><br><br><br>
+<br><br><br><br>
 <div class="container-lg py-5">
     <div class="container">
         <div class="container">
@@ -14,19 +14,19 @@
         <br><br>
         <div class="custom-card">
             <div class="cardBody">
-                <div class="table-responsive">
+                <div class="table-responsive" >
                     <table id="keranjang" class="table-hover table condensed">
                         <thead>
                             <tr>
                                 <th style="width:5%" data-th="checkbox">
                                     <input type="checkbox" id="checkAll" class="form-check-input">
                                 </th>
-                                <th style="width:10%" data-th="item">Item</th>
-                                <th style="width:30%" data-th="e-book">E-book</th>
-                                <th style="width:10%" data-th="harga">Harga</th>
-                                <th style="width:5%" data-th="diskon">Diskon</th>
-                                <th style="width:10%" data-th="total">Total</th>
-                                <th style="width:5%"></th>
+                                <th style="width:15%; font-size: 18px;" data-th="item">Item</th>
+                                <th style="width:22%; font-size: 18px;" data-th="e-book">E-book</th>
+                                <th style="width:10%; font-size: 18px;" data-th="harga">Harga</th>
+                                <th style="width:5%; font-size: 18px;" data-th="diskon">Diskon</th>
+                                <th style="width:10%; font-size: 18px;" data-th="total">&nbsp;&nbsp;&nbsp;Total</th>
+                                <th style="width:8%; text-align: center;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,60 +39,62 @@
                                         $formattedSubtotal = number_format($subtotal, 0, ',', '.');
                                     ?>
                                     <tr data-id="{{ $detail->id }}">
-                                        <td data-th="checkbox">
+                                        <td data-th="checkbox"><br><br><br>
                                             <input type="checkbox" class="form-check-input checkbox-item">
                                         </td>
                                         <td data-th="item">
                                             <div class="row">
-                                                <div class="col-sm-3 hidden-xs">
-                                                    <img src="{{ asset('landingpage/img') }}/{{ $detail->buku_foto }}" width="150" height="200">
+                                                <div class="col-sm-3 hidden-xs"><br>
+                                                    <img src="{{ asset('landingpage/img') }}/{{ $detail->buku_foto }}" width="100" height="135">
                                                 </div>
-                                            </div>
+                                            </div><br>
                                         </td>
                                         <td data-th="e-book">
                                             <div class="row">
-                                                <div class="col-sm-3 hidden-xs">
+                                                <div class="col-sm-3 hidden-xs"><br><br><br>
                                                     <p style="white-space: nowrap; word-wrap: break-word;">{{ $detail->buku_judul }}</p>
                                                 </div>
-                                            </div>
+                                            </div><br>
                                         </td>
-                                        <td data-th="harga">Rp{{ $formattedHarga }}</td>
+                                        <td data-th="harga"><br><br><br>Rp{{ $formattedHarga }}</td>
                                         @if ($detail->buku_diskon > 0)
-                                            <td data-th="diskon">{{ intval($detail->buku_diskon) }}%</td>
+                                            <td data-th="diskon" style="text-align: center"><br><br><br>{{ intval($detail->buku_diskon) }}%</td>
                                         @else
-                                            <td data-th="diskon">-</td>
+                                            <td data-th="diskon" style="text-align: center"><br><br><br>-</td>
                                         @endif
-                                        <td data-th="total">Rp{{ $formattedSubtotal }}</td>
-                                        <td>
+                                        <td data-th="total"><br><br><br>Rp {{ $formattedSubtotal }}</td>
+                                        <td><br><br><br>
                                             <form method="POST" action="{{ route('pesanan.destroy', $detail->id) }}" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')">
-                                                    <i class="fas fa-trash fa-lg fs-3"></i>
+                                                <button class="btn btn-sm" type="submit" title="Hapus" name="proses" value="hapus" onclick="return confirm('Anda Yakin Data Dihapus?')" style="background-color: transparent;">
+                                                    <i class="fa fa-trash fs-4" style="color: #d10000;"></i>
                                                 </button>
+
                                                 <input type="hidden" name="idx" value=""/>
                                             </form>
                                         </td>
-                                    </tr>
+                                    </tr><br>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="7" class="text-center">Keranjang Anda kosong.</td>
+                                    <td colspan="7" class="text-center"><br>Keranjang Anda kosong!<br><br></td>
                                 </tr>
                             @endif
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td colspan="6" class="text-right">
-                                    <h3><strong>Total Rp<span id="total">0</span></strong></h3>
+                            <tr><br>
+                                <td colspan="6" class="text-right"><br>
+                                    <h3><strong>Total Rp <span id="total">0</span></strong></h3>
                                 </td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td colspan="7" class="text-right">
+                            <td colspan="7" class="text-right">
+                                <div class="button-container">
                                     <a href="{{ url('/ebook') }}" class="btn btn-danger">
                                         <i class="fa fa-arrow-left"></i>
-                                        Lanjutkan Belanja
+                                          &nbsp;Lanjutkan Belanja
                                     </a>
                                     <form action="{{ route('checkout') }}" method="POST">
                                         @csrf
@@ -101,9 +103,13 @@
                                         <input type="hidden" name="nama" value="{{ Auth::user()->name }}">
                                         <input type="hidden" name="email" value="{{ Auth::user()->email }}">
                                         <input type="hidden" name="phone" value="{{ Auth::user()->hp }}">
-                                        <button type="submit" class="btn btn-success">Checkout</button>
+                                        <button type="submit" class="btn btn-success">
+                                             <i class="fa fa-credit-card"></i>    
+                                              &nbsp;Checkout
+                                        </button>
                                     </form>
-                                </td>
+                                </div>
+                            </td>
                             </tr>
                         </tfoot>
                     </table>

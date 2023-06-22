@@ -14,7 +14,7 @@
 </div><br/>
 <!-- Page Header End -->
 
-<!-- Testimonial Start -->
+<!-- tim kami Start -->
 <div class="container-fluid bg-light">
     <div class="container">
         <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
@@ -28,6 +28,7 @@
                     <br/>
                     <div class="ms-3">
                         <h5>Hanief Widya Wardhana</h5>
+                        <span>Universitas Negeri Semarang</span><br>
                         <span>Project Manager</span>
                     </div>
                 </div>
@@ -38,6 +39,7 @@
                     <br/>
                     <div class="ms-3">
                         <h5 class="mb-1">Silpa Ishari Pasaribu</h5>
+                        <span>Universitas Malikussaleh</span><br>
                         <span>UI/UX</span>
                     </div>
                 </div>
@@ -48,6 +50,7 @@
                     <br/>
                     <div class="ms-3">
                         <h5 class="mb-1">Rico Priyono</h5>
+                        <span>Universitas Amikom Purwokerto</span><br>
                         <span>Front End</span>
                     </div> 
                 </div>
@@ -58,6 +61,7 @@
                     <br/>
                     <div class="ms-3">
                         <h5 class="mb-1">Firman Dwi Prabudi</h5>
+                        <span>Universitas Syiah Kuala</span><br>
                         <span>Back End</span>
                     </div>
                 </div>
@@ -68,6 +72,7 @@
                     <br/>
                     <div class="ms-3">
                         <h5 class="mb-1">Aminullah</h5>
+                        <span>Universitas Nurul Jadid <br> Paiton Probolinggo</span><br>
                         <span>Laporan</span>
                     </div>
                 </div>
@@ -76,7 +81,7 @@
     </div>
 </div>
 
-<!-- Testimonial End -->
+<!-- Tim kami End -->
 
 <!-- Contact Start -->
 <div class="container-xxl py-6">

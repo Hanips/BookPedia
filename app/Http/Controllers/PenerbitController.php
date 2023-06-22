@@ -47,6 +47,7 @@ class PenerbitController extends Controller
         );
 
         //lakukan insert data dari request form
+        try{
         DB::table('penerbit')->insert(
             [
                 'nama'=>$request->nama,
@@ -55,6 +56,12 @@ class PenerbitController extends Controller
         return redirect()->route('penerbit.index')
                         ->with('success','Data Penerbit Baru Berhasil Disimpan');
     }
+    catch (\Exception $e){
+        //return redirect()->back()
+        return redirect()->route('penerbit.index')
+            ->with('error', 'Terjadi Kesalahan Saat Input Data!');
+    }  
+}
 
     /**
      * Display the specified resource.

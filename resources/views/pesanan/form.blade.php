@@ -1,14 +1,6 @@
 @extends('adminpage.index')
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 @if (Auth::user()->role != 'Pelanggan')
     <main>
         <div class="container-fluid px-4">
@@ -17,22 +9,34 @@
                 <form method="POST" action="{{ route('pesanan.store') }}" id="contactForm">
                     @csrf
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="pelanggan" aria-label="Pelanggan">
+                        <select class="form-select @error ('pelanggan') is-invalid @enderror" name="pelanggan" aria-label="Pelanggan">
                             <option value="">-- Pilih Pelanggan --</option>
                             @foreach ($ar_pelanggan as $pelanggan)
-                            <option value="{{ $pelanggan->id }}">{{ $pelanggan->name }}</option>
+                            @php $sel = ( old('pelanggan')==$pelanggan['id'] ) ? 'selected' : ''; @endphp
+                            <option value="{{ $pelanggan->id }}" {{ $sel }}>{{ $pelanggan->name }}</option>
                             @endforeach
                         </select>
                         <label for="pelanggan">Nama Pelanggan</label>
+                        @error('pelanggan')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="buku" aria-label="Buku">
+                        <select class="form-select @error ('buku') is-invalid @enderror" name="buku" aria-label="Buku">
                             <option value="">-- Pilih E-Book --</option>
                             @foreach ($ar_buku as $buku)
+                            @php $sel = ( old('buku')==$buku['id'] ) ? 'selected' : ''; @endphp
                             <option value="{{ $buku->id }}">{{ $buku->judul }}</option>
                             @endforeach
                         </select>
                         <label for="buku">E-Book</label>
+                        @error('buku')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <button class="btn btn-primary" name="proses" value="simpan" id="simpan" type="submit">Simpan</button>
                     <a href="{{ url('/pesanan') }}" class="btn btn-danger">Batal</a>

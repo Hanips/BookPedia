@@ -1,14 +1,6 @@
 @extends('adminpage.index')
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 @if (Auth::user()->role != 'Pelanggan')
     <main>
         <div class="container-fluid px-4">
@@ -18,7 +10,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="pelanggan" aria-label="Pelanggan">
+                        <select class="form-select @error ('pelanggan') is-invalid @enderror" name="pelanggan" aria-label="Pelanggan">
                             <option value="">-- Pilih Pelanggan --</option>
                             @foreach ($ar_pelanggan as $pelanggan)
                             @php
@@ -28,9 +20,14 @@
                             @endforeach
                         </select>
                         <label for="pelanggan">Nama Pelanggan</label>
+                        @error('pelanggan')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="buku" aria-label="Buku">
+                        <select class="form-select @error ('buku') is-invalid @enderror" name="buku" aria-label="Buku">
                             <option value="">-- Pilih Buku --</option>
                             @foreach ($ar_buku as $buku)
                             @php
@@ -40,11 +37,20 @@
                             @endforeach
                         </select>
                         <label for="buku">E-Book</label>
+                        @error('buku')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="ket" value="{{ $row->ket }}" id="ket" type="text" placeholder="Keterangan" data-sb-validations="required" />
+                        <input class="form-control @error ('ket') is-invalid @enderror" name="ket" value="{{ $row->ket }}" id="ket" type="text" placeholder="Keterangan" data-sb-validations="required" />
                         <label for="ket">Keterangan</label>
-                        <div class="invalid-feedback" data-sb-feedback="ket:required">Keterangan is required.</div>
+                        @error('ket')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <button class="btn btn-primary" name="proses" value="ubah" id="ubah" type="submit">Ubah</button>
                     <input type="hidden" name="id" value="{{ $row->id }}"/>

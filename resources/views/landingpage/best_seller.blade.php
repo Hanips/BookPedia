@@ -18,7 +18,7 @@
                                     <div class="position-relative bg-light overflow-hidden" style="border-radius: 5px;">
                                         @empty($buku->foto)
                                             <div class="image-container">
-                                                <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover;">
+                                                <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover; width: 100%; height: 280px;">
                                             </div>
                                         @else
                                             @php
@@ -27,11 +27,11 @@
                                             @endphp
                                             @if (file_exists(public_path($fotoPath)))
                                                 <div class="image-container">
-                                                    <img src="{{ $fotoUrl }}" class="img-fluid" alt="Foto e-book">
+                                                    <img src="{{ $fotoUrl }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover; width: 100%; height: 280px;">
                                                 </div>
                                             @else
                                                 <div class="image-container">
-                                                    <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover;">
+                                                    <img src="{{ url('landingpage/img/nophoto.jpg') }}" class="img-fluid" alt="Foto e-book" style="object-fit: cover; width: 100%; height: 280px;">
                                                 </div>
                                             @endif
                                         @endempty

@@ -194,6 +194,7 @@ class BukuController extends Controller
         }
 
         //lakukan insert data dari request form
+        try{
         DB::table('buku')->insert(
             [
                 'kode'=>$request->kode,
@@ -214,7 +215,12 @@ class BukuController extends Controller
         return redirect()->route('buku.index')
                         ->with('success','Data Produk Baru Berhasil Disimpan');
     }
-
+        catch (\Exception $e){
+            //return redirect()->back()
+            return redirect()->route('buku.index')
+                ->with('error', 'Terjadi Kesalahan Saat Input Data!');
+        }  
+    }
     /**
      * Detail buku adminpage
      */
@@ -357,7 +363,21 @@ class BukuController extends Controller
         return redirect()->route('buku.index')
                         ->with('success', 'Data Buku Berhasil Dihapus');
     }
-    
+ /*
+    public function delete($id)
+    {
+        $buku = Buku::find($id);
+        if (!empty($buku->foto)) {
+            $fotoPath = public_path('landingpage/img/'.$buku->foto);
+            if (file_exists($fotoPath)) {
+                unlink($fotoPath);
+            }
+        }
+        //hapus data dari database
+        Buku::where('id',$id)->delete();
+        return redirect()->back();
+    }   */ 
+
     public function bukuExcel()
     {
         return Excel::download(new BukuExport, 'data_buku_'.date('d-m-Y').'.xlsx');
