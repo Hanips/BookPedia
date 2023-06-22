@@ -18,6 +18,10 @@
     </head>
     <body class="sb-nav-fixed">
         <div id="layoutSidenav">
+
+            <!-- SweetAlert -->
+            @include('sweetalert::alert')
+
             <!-- ======= Header ======= -->
             @include('adminpage.header')
 

@@ -47,6 +47,7 @@ class KategoriController extends Controller
         );
 
         //lakukan insert data dari request form
+        try{
         DB::table('kategori')->insert(
             [
                 'nama'=>$request->nama,
@@ -55,6 +56,12 @@ class KategoriController extends Controller
         return redirect()->route('kategori.index')
                         ->with('success','Data Kategori Baru Berhasil Disimpan');
     }
+        catch (\Exception $e){
+            //return redirect()->back()
+            return redirect()->route('kategori.index')
+                ->with('error', 'Terjadi Kesalahan Saat Input Data!');
+    }  
+}
 
     /**
      * Display the specified resource.

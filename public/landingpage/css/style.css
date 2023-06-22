@@ -6,13 +6,38 @@
     --dark: #111111;
 }
 
+.table-responsive{
+    margin-top: -80;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: -20px;
+}
+
+
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.button-container button {
+    margin-left: 10px;
+    margin-right: 20px;
+
+}
+.text-right {
+    text-align: right;
+}
+
 .rounded-pill-custom {
     border-radius: 8px; 
   }
 
 .custom-card {
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

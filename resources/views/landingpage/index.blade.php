@@ -37,6 +37,8 @@
     </div>
     <!-- Spinner End -->
 
+    <!-- sweetAlert -->
+    @include('sweetalert::alert')
 
     <!-- ======= Header ======= -->
     @include('landingpage.header')

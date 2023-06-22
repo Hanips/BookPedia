@@ -1,18 +1,14 @@
 @extends('adminpage.index')
 @section('content')
-@if($message = Session::get('success'))
-  <div class="alert alert-success">
-    <p>{{ $message }}</p>
-  </div>
-@endif
+
 @if (Auth::user()->role != 'Pelanggan')
   <main>
     <br><br>
     <div class="container-fluid px-4 mx-auto">
       <div class="container">
-        <h2>Detail Buku</h2>
+        <h2 style="margin-left: 50px;">Detail Buku</h2>
         <div class="row justify-content-center">
-          <div class="col-md-11">
+          <div class="col-md-11"><br>
             <div class="card rounded">
               <div class="card-body">
                 <div class="row">

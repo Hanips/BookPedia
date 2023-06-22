@@ -200,6 +200,7 @@ class UserController extends Controller
         }
 
         //lakukan insert data dari request form
+        try{
         DB::table('users')->insert(
             [
                 'name'=>$request->name,
@@ -213,6 +214,12 @@ class UserController extends Controller
         return redirect()->route('user.index')
                         ->with('success','Data User Baru Berhasil Disimpan');
     }
+    catch (\Exception $e){
+            //return redirect()->back()
+            return redirect()->route('user.index')
+                ->with('error', 'Terjadi Kesalahan Saat Input Data!'); 
+    }
+}
 
     /**
      * Display the specified resource.

@@ -1,14 +1,6 @@
 @extends('adminpage.index')
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 @if (Auth::user()->role != 'Pelanggan')
     <main>
         <div class="container-fluid px-4">
@@ -18,27 +10,49 @@
                     @csrf
                     @method('PUT')
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="name" value="{{ $row->name }}" id="name" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" />
+                        <input class="form-control @error ('name') is-invalid @enderror" name="name" value="{{ $row->name }}" id="name" type="text" placeholder="Nama Pelanggan" data-sb-validations="required" />
                         <label for="name">Pelanggan</label>
-                        <div class="invalid-feedback" data-sb-feedback="name:required">Nama pelanggan is required.</div>
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="email" value="{{ $row->email }}" id="email" type="email" placeholder="Email" data-sb-validations="required" />
+                        <input class="form-control @error ('email') is-invalid @enderror" name="email" value="{{ $row->email }}" id="email" type="email" placeholder="Email" data-sb-validations="required" />
                         <label for="email">Email</label>
-                        <div class="invalid-feedback" data-sb-feedback="email:required">Email is required.</div>
+                        @error('email')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password" disabled/>
+                        <input class="form-control @error ('password') is-invalid @enderror" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password" disabled/>
                         <label for="password">Password</label>
+                        @error('password')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="hp" value="{{ $row->hp }}" id="hp" type="number" placeholder="No HP" data-sb-validations="required" />
+                        <input class="form-control @error ('hp') is-invalid @enderror" name="hp" value="{{ $row->hp }}" id="hp" type="number" placeholder="No HP" data-sb-validations="required" />
                         <label for="hp">No. HP</label>
-                        <div class="invalid-feedback" data-sb-feedback="hp:required">No. HP is required.</div>
+                        @error('hp')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" name="foto" value="{{ $row->foto }}" id="foto" type="file" placeholder="Foto" />
+                        <input class="form-control @error ('foto') is-invalid @enderror" name="foto" value="{{ $row->foto }}" id="foto" type="file" placeholder="Foto" />
                         <label for="foto">Foto</label>
+                        @error('foto')
+                            <div class="invalid-feedback">
+                                {{ $message}}
+                            </div>
+                        @enderror
                     </div>
                     <button class="btn btn-primary" name="proses" value="ubah" id="ubah" type="submit">Ubah</button>
                     <input type="hidden" name="id" value="{{ $row->id }}"/>

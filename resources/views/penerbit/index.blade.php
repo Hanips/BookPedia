@@ -48,7 +48,7 @@
                                     <div class="d-flex justify-content-end">
                                     <a class="btn btn-warning" href="{{ route('penerbit.edit', $penerbit->id) }}" title="Ubah">
                                         <i class="fa fa-edit"></i>
-                                    </a>
+                                    </a>&nbsp;
                                     <form method="POST" action="{{ route('penerbit.destroy', $penerbit->id) }}" style="display: inline;">
                                         @csrf
                                         @method('DELETE')

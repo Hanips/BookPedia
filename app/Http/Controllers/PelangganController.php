@@ -74,6 +74,7 @@ class PelangganController extends Controller
         }
 
         //lakukan insert data dari request form
+        try{
         DB::table('users')->insert(
             [
                 'name'=>$request->name,
@@ -86,7 +87,12 @@ class PelangganController extends Controller
         return redirect()->route('pelanggan.index')
                         ->with('success','Data Pelanggan Baru Berhasil Disimpan');
     }
-
+        catch (\Exception $e){
+            //return redirect()->back()
+            return redirect()->route('pelanggan.index')
+                ->with('error', 'Terjadi Kesalahan Saat Input Data!');
+        }  
+    }
     /**
      * Display the specified resource.
      */

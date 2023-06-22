@@ -80,6 +80,7 @@ class PesananController extends Controller
         );
 
         //lakukan insert data dari request form
+        try{
         DB::table('pesanan')->insert(
             [
                 'user_id'=>$request->pelanggan,
@@ -88,6 +89,12 @@ class PesananController extends Controller
        
         return redirect()->route('pesanan.index')
                         ->with('success','Data Pesanan Baru Berhasil Disimpan');
+    }
+        catch (\Exception $e){
+            //return redirect()->back()
+            return redirect()->route('pesanan.index')
+                ->with('error', 'Terjadi Kesalahan Saat Input Data!');
+        }  
     }
 
     /**
