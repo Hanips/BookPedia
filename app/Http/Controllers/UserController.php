@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Error\ApiException;
 
 class UserController extends Controller
 {
@@ -45,8 +46,8 @@ class UserController extends Controller
                     ->where('pesanan.user_id', $user->id)
                     ->where('pesanan.ket', 'Pending')
                     ->get();
-    
-        $selectedItems = [];
+                    
+                    $selectedItems = [];
     
         foreach ($keranjang as $detail) {
             $subtotal = $detail->buku_harga - ($detail->buku_harga * $detail->buku_diskon / 100);
@@ -59,86 +60,69 @@ class UserController extends Controller
                     'harga' => $subtotal
                 ];
             }
-    
+            
             $detail->buku_harga_formatted = $formattedHarga;
             $detail->subtotal_formatted = $formattedSubtotal;
         }
-    
+        // dd($keranjang);
+        
         return view('landingpage.keranjang', compact('keranjang', 'selectedItems'));
     }
     
 
-    /*public function checkout(Request $request)
+    public function checkout(Request $request)
     {
-        // Mengambil data dari form
-        $pesananIds = $request->input('pesanan_ids');
-        $grossAmounts = $request->input('gross_amounts');
+        // dd($request->all());
+        $selectedData = $request->pesanan;
+        $pesan = Pesanan::findOrFail($selectedData);
+        // dd($pesan);
+        $harga = $pesan->buku->harga;
+        $diskon = $pesan->buku->diskon;
+        if($diskon == null || $diskon == 0){
+            $after_diskon = $harga;
+        }
+        else{
+            $after_diskon = $harga - (($diskon/100) * $harga);
+        }
 
-        // Memeriksa data yang terambil
-        dd($pesananIds, $grossAmounts);
+        $pesananIds = $pesan;
+        $grossAmounts = $after_diskon;
+        // dd($grossAmounts);
 
-        // Set konfigurasi Midtrans
+         // Server Key
         Config::$serverKey = config('midtrans.server_key');
-        Config::$clientKey = config('midtrans.client_key');
-        Config::$isProduction = false;
-    
-        // Ambil data buku yang dicentang oleh pengguna
-        $selectedItems = $request->input('selectedItems');
-    
-        if (empty($selectedItems)) {
-            // Tambahkan logika jika tidak ada buku yang dicentang
-            return redirect()->back()->with('error', 'Tidak ada buku yang dipilih.');
+        // dd(config('midtrans.server_key'));
+        // $server = \Midtrans\Config::$serverKey;
+        Config::$isProduction = config('midtrans.is_production');
+        // Set sanitization
+        Config::$isSanitized = true;
+        // Set 3DS transaction untuk credit card
+        Config::$is3ds = true;
+        
+        if (Auth::check()) {
+            $user = Auth::user();
+            $namaUser = $user->name;
+            $emailUser = $user->email;
+            $phoneUser = $user->hp;
+
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => $pesan->id,
+                    'gross_amount' => $grossAmounts,
+                ),
+                'customer_details' => array(
+                    'first_name' => $namaUser,
+                    // 'last_name' => 'pratama',
+                    'email' => $emailUser,
+                    'phone' => $phoneUser,
+                ),
+            );
         }
-    
-        $items = [];
-        $totalAmount = 0;
-    
-        foreach ($selectedItems as $selectedItem) {
-            $pesananId = $selectedItem;
-            $pesanan = Pesanan::find($pesananId);
-            $buku = $pesanan->buku; // Sesuaikan dengan relasi antara Pesanan dan Buku
-    
-            $harga = $buku->harga;
-    
-            $items[] = [
-                'id' => $pesananId,
-                'price' => $harga,
-                'quantity' => 1,
-                'name' => $buku->judul,
-            ];
-    
-            $totalAmount += $harga;
-        }
-    
-        // Simpan selectedItems ke dalam session sebelum redirect
-        session(['selectedItems' => $selectedItems]);
-    
-        // Ambil data pesanan yang ingin dibayar
-        $pesanan = Pesanan::find($selectedItems[0]);
-    
-        // Buat transaksi pembayaran
-        $transaction = [
-            'transaction_details' => [
-                'order_id' => $pesanan->id,
-                'gross_amount' => $totalAmount,
-            ],
-            'customer_details' => [
-                'name' => $pesanan->nama,
-                'email' => $pesanan->email,
-                'phone' => $pesanan->phone,
-            ],
-            'item_details' => $items,
-        ];
-    
-        // Buat payment token menggunakan Snap API
-        $snapToken = Snap::getSnapToken($transaction);
-    
-        // Simpan snapToken ke dalam session sebelum redirect
-        session(['snapToken' => $snapToken]);
-    
-        // Redirect pengguna ke halaman pembayaran Midtrans
-        return redirect()->route('snap')->with('pesanan', $pesanan);
-    }*/
+
+        $snapToken = Snap::getSnapToken($params);
+        // dd($snapToken);
+        return view('landingpage.pay', compact('pesan', 'snapToken', 'grossAmounts', 'namaUser'));
+    }
     
     /**
      * Show the form for creating a new resource.
@@ -214,12 +198,12 @@ class UserController extends Controller
         return redirect()->route('user.index')
                         ->with('success','Data User Baru Berhasil Disimpan');
     }
-    catch (\Exception $e){
-            //return redirect()->back()
-            return redirect()->route('user.index')
-                ->with('error', 'Terjadi Kesalahan Saat Input Data!'); 
+        catch (\Exception $e){
+                //return redirect()->back()
+                return redirect()->route('user.index')
+                    ->with('error', 'Terjadi Kesalahan Saat Input Data!'); 
+        }
     }
-}
 
     /**
      * Display the specified resource.
@@ -267,7 +251,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|max:45',
             'email' => 'required|max:45',
-            'password' => 'required',
+            'password' => 'nullable',
             'role' => 'required',
             'hp' => 'regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,svg|min:2|max:500', //KB
@@ -278,7 +262,6 @@ class UserController extends Controller
             'name.max'=>'Nama Maksimal 45 karakter',
             'email.required'=>'Email Wajib Diisi',
             'email.max'=>'Email Maksimal 45 karakter',
-            'password.required'=>'Password Wajib Diisi',
             'role.required'=>'Role Wajib Diisi',
             'hp.regex'=>'Nomor HP harus berupa angka',
             'foto.min'=>'Ukuran file kurang 2 KB',
@@ -343,5 +326,10 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('user.index')
                         ->with('success', 'Data User Berhasil Dihapus');
+    }
+
+    public function pay()
+    {
+        return view('landingpage.pay');
     }
 }

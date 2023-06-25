@@ -21,15 +21,12 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="{{ url('/') }}" class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
-                <a href="{{ url('/ebook') }}" class="nav-item nav-link">Ebook</a>
+                <a href="{{ url('/ebook') }}" class="nav-item nav-link {{ request()->is('ebook') ? 'active' : '' }}">Ebook</a>
                 <a href="{{ url('/promo') }}" class="nav-item nav-link {{ request()->is('promo') ? 'active' : '' }}">Promo</a>
                 <a href="{{ url('/contact') }}" class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Tim Kami</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
                 <div class="d-flex align-items-center">
-                    <a href="#" class="btn btn-sm bg-white btn-outline-dark rounded-circle me-3">
-                        <i class="fas fa-search text-body"></i>
-                    </a>
                     @guest
                     <!-- Tampilkan tombol Login jika pengguna belum login -->
                     <a href="{{ route('login') }}" class="btn btn-md bg-white btn-outline-dark rounded-pill me-3 wow fadeIn" data-wow-delay="0.1s">

@@ -14,10 +14,11 @@ class DashboardController extends Controller
     {
         // Menghitung total income (counter)
         $totalIncome = Pesanan::join('buku', 'pesanan.buku_id', '=', 'buku.id')
+                            ->where('pesanan.ket', 'Done')
                             ->sum('buku.harga');
 
         // Menghitung jumlah buku terjual (dari jumlah pesanan)
-        $totalBukuTerjual = Pesanan::count();
+        $totalBukuTerjual = Pesanan::where('ket', 'Done')->count();
 
         // Menghitung jumlah pelanggan
         $totalPelanggan = User::where('role', '=', 'Pelanggan')
@@ -26,6 +27,7 @@ class DashboardController extends Controller
         // Grafik income bulanan (bar chart)
         $bulanIncome = Pesanan::selectRaw('SUM(buku.harga) as income')
                 ->join('buku', 'pesanan.buku_id', '=', 'buku.id')
+                ->where('pesanan.ket', 'Done')
                 ->groupByRaw('MONTH(pesanan.tgl)')
                 ->orderByRaw('MONTH(pesanan.tgl)')
                 ->limit(6)
@@ -33,6 +35,7 @@ class DashboardController extends Controller
 
         // Grafik buku terjual setiap bulan (Bar Chart)
         $bulanTerjual = Pesanan::selectRaw('COUNT(*) as terjual')
+                ->where('pesanan.ket', 'Done')
                 ->groupByRaw('MONTH(pesanan.tgl)')
                 ->orderByRaw('MONTH(pesanan.tgl)')
                 ->limit(6)

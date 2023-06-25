@@ -31,9 +31,18 @@ class BukuController extends Controller
 
     public function dataBuku()
     {
-        $ar_buku = Buku::all(); //eloquent
+        $ar_buku = Buku::leftJoin('pesanan', 'buku.id', '=', 'pesanan.buku_id')
+            ->leftJoin('kategori', 'buku.kategori_id', '=', 'kategori.id')
+            ->select('buku.id', 'buku.judul', 'buku.harga', 'buku.diskon', 'buku.foto', 'kategori.nama as nama', DB::raw('COUNT(pesanan.buku_id) as jumlah_pesanan'))
+            ->groupBy('buku.id', 'buku.judul', 'buku.harga', 'buku.diskon', 'buku.foto', 'kategori.nama')
+            ->orderBy('jumlah_pesanan', 'desc')
+            ->get();
+    
         return view('landingpage.hero', compact('ar_buku'));
     }
+    
+    
+    
 
     public function bukuDiskon()
     {

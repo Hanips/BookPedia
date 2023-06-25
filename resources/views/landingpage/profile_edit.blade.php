@@ -33,7 +33,7 @@
                         @enderror
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control @error ('password') is-invalid @enderror" name="password" value="{{ $row->password }}" id="password" type="password" placeholder="Password" style="border-radius: 10px;" />
+                        <input class="form-control @error ('password') is-invalid @enderror" name="password" value="" id="password" type="password" placeholder="Password" style="border-radius: 10px;" />
                         <label for="password">Password</label>
                         @error('password')
                             <div class="invalid-feedback">

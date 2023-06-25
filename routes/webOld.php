@@ -29,8 +29,10 @@ Route::get('/', [BukuController::class, 'dataBuku']);
 Route::get('/detail/{id}', [BukuController::class, 'detailBuku'])->name('landingpage.buku_detail');
 Route::get('/keranjang', [UserController::class, 'keranjang'])->name('keranjang')->middleware('auth');
 Route::post('/tambah-ke-keranjang/{id}', [PesananController::class, 'tambahKeKeranjang'])->name('tambah.ke.keranjang')->middleware('auth');
-Route::delete('/keranjang/{id}', [PesananController::class, 'destroy'])->name('keranjang.destroy')->middleware('auth');
-Route::post('/checkout', [UserController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::post('/keranjang_pesanan', [UserController::class, 'checkout'])->name('keranjang_pesanan')->middleware('auth');
+Route::get('pesanan/delete/{id}', [PesananController::class, 'destroy'])->name('pesanan_delete')->middleware('auth');
+Route::get('/paynow', [UserController::class, 'pay'])->name('pay_now')->middleware('auth');
+Route::get('/invoice/{id}', [PesananController::class, 'invoice'])->name('invoice')->middleware('auth');
 Route::get('/snap', function () {
     return view('snap');
 });
@@ -55,8 +57,3 @@ Route::middleware('auth')->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/paynow', [UserController::class, 'pay'])->name('pay_now');
-Route::get('/invoice/{id}', [PesananController::class, 'invoice'])->name('invoice');
-
-Route::get('pesanan/delete/{id}', [PesananController::class, 'destroy'])->name('pesanan_delete');
-Route::post('/keranjang_pesanan', [UserController::class, 'checkout'])->name('keranjang_pesanan');

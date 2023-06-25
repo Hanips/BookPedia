@@ -177,4 +177,15 @@ class PesananController extends Controller
         return Excel::download(new PesananExport, 'data_pesanan_'.date('d-m-Y').'.xlsx');
     }
 
+    public function invoice(string $id)
+    {
+        $detail = Pesanan::findOrFail($id);
+        if (Auth::check()) {
+            $user = Auth::user();
+            $namaUser = $user->name;
+        }
+
+        return view('landingpage.invoice', compact('detail', 'namaUser'));
+    }
+
 }
